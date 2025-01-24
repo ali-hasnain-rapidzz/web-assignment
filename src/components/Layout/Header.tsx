@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import SettingsModal from '../Layout/Modal/SettingsModal';
 
 const Header: React.FC = () => {
@@ -36,6 +36,8 @@ const Header: React.FC = () => {
   };
 
   return (
+    <div>
+       
     <header className="flex justify-between items-center p-4 bg-blue-600 text-white shadow-md">
       <div className="flex items-center space-x-4">
         <img src="/assets/logo.png" alt="Logo" className="h-8" />
@@ -86,6 +88,10 @@ const Header: React.FC = () => {
         onPreferenceChange={handlePreferenceChange}
       />
     </header>
+    <main>
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

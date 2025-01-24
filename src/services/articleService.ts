@@ -1,4 +1,6 @@
-// src/services/articleService.ts
+
+import { AxiosRequestConfig } from "axios";
+import { ARTICLE_URL } from "../utils/urls";
 
 interface Article {
     id: string;
@@ -14,7 +16,7 @@ interface Article {
   const dummyArticles: Article[] = [
     {
       id: '1',
-      title: 'Tech Innovations in 2026',
+      title: 'Tech Innovations in 2025',
       description: 'A deep dive into the latest tech innovations that will shape the future.',
       content: 'Detailed article content on the latest tech innovations.',
       date: '2025-01-01',
@@ -125,5 +127,13 @@ interface Article {
       const article = dummyArticles.find((article) => article.id === id);
       return { data: article };
     },
+    getArticleConfig: (filters: any, page: number): AxiosRequestConfig => {
+        return {
+          method: 'GET',
+          url: ARTICLE_URL, // Adjust this URL to your backend endpoint
+          params: { ...filters, page }, // Merge filters and page number
+        };
+      },
   };
+
   
