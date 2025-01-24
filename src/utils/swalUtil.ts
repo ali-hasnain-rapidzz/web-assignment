@@ -22,7 +22,10 @@ export const showSwal = (options: SwalOptions) => {
   }).then((result) => {
     if (result.isConfirmed && options.onConfirm) {
       options.onConfirm();
-    } else if (result.dismiss === Swal.DismissReason.cancel && options.onCancel) {
+    } else if (
+      result.dismiss === Swal.DismissReason.cancel &&
+      options.onCancel
+    ) {
       options.onCancel();
     }
   });

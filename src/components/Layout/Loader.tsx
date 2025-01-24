@@ -5,7 +5,10 @@ interface LoaderProps {
   color?: string; // Tailwind color class, e.g., "text-blue-600"
 }
 
-const Loader: React.FC<LoaderProps> = ({ size = 'medium', color = 'text-blue-600' }) => {
+const Loader: React.FC<LoaderProps> = ({
+  size = 'medium',
+  color = 'text-blue-600',
+}) => {
   const sizeClasses = {
     small: 'w-6 h-6',
     medium: 'w-8 h-8',

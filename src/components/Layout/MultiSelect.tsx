@@ -27,7 +27,9 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 
   return (
     <div className="relative">
-      <label className="block text-sm font-medium text-gray-700 text-black">{label}</label>
+      <label className="block text-sm font-medium text-gray-700 text-black">
+        {label}
+      </label>
       <div className="space-y-2 mt-2">
         {options.map((option) => (
           <div
@@ -41,7 +43,9 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
               onChange={() => handleOptionClick(option.id)}
               className="mr-2"
             />
-            <div className="text-sm font-semibold text-black">{option.title}</div>
+            <div className="text-sm font-semibold text-black">
+              {option.title}
+            </div>
           </div>
         ))}
       </div>

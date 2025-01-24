@@ -9,7 +9,12 @@ interface SelectProps {
   placeholder: string;
 }
 
-const Select: React.FC<SelectProps> = ({ value, onChange, options, placeholder }) => {
+const Select: React.FC<SelectProps> = ({
+  value,
+  onChange,
+  options,
+  placeholder,
+}) => {
   return (
     <select
       value={value}

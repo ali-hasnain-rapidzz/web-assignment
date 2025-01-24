@@ -13,7 +13,10 @@ interface ArticleFilterProps {
   onFilterChange: (newFilters: any) => void;
 }
 
-const ArticleFilter: React.FC<ArticleFilterProps> = ({ filters, onFilterChange }) => {
+const ArticleFilter: React.FC<ArticleFilterProps> = ({
+  filters,
+  onFilterChange,
+}) => {
   // Define the options for each filter
   const dateOptions = [
     { value: 'today', label: 'Today' },

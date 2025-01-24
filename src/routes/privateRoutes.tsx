@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
@@ -9,10 +8,9 @@ const isAuthenticated = () => {
 };
 
 const PrivateRoute: React.FC = () => {
-  // if (isAuthenticated()) {
-  //   // If not authenticated, redirect to login page
-  //   return <Navigate to="/login" />;
-  // }
+  if (isAuthenticated()) {
+    return <Navigate to="/login" />;
+  }
 
   return <Outlet />; // Render child routes if authenticated
 };

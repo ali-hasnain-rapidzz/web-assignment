@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import InputField from '../components/Layout/InputField';
-import SubmitButton from '../components/Layout/SubmitButton';
-import  useAxios  from '../hooks/useAxios';
+import SubmitButton from '../components/Layout/Button';
+import useAxios from '../hooks/useAxios';
 import { useNavigate, Link } from 'react-router-dom';
 import Loader from '../components/Layout/Loader';
-import  authService  from '../services/authService';
+import authService from '../services/authService';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +20,6 @@ const Login: React.FC = () => {
     setFormData({ ...formData, [id]: value });
   };
 
-  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const apiConfig = authService.login(formData.email, formData.password);
@@ -60,7 +59,14 @@ const Login: React.FC = () => {
             required
           />
           <div className="mt-4">
-            {isLoading ? <Loader size="medium" /> : <SubmitButton label="Login" />}
+            {isLoading ? (
+              <Loader size="medium" />
+            ) : (
+              <SubmitButton
+                className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                label="Login"
+              />
+            )}
           </div>
         </form>
         <div className="mt-4 text-center">

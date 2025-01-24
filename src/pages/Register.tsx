@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import InputField from '../components/Layout/InputField';
-import SubmitButton from '../components/Layout/SubmitButton';
-import  useAxios  from '../hooks/useAxios';
+import SubmitButton from '../components/Layout/Button';
+import useAxios from '../hooks/useAxios';
 import authService from '../services/authService';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Layout/Loader';
@@ -23,7 +23,11 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const apiConfig = authService.register(formData.name, formData.email, formData.password);
+    const apiConfig = authService.register(
+      formData.name,
+      formData.email,
+      formData.password
+    );
     const response = await callApi(apiConfig);
 
     if (response) {
@@ -35,7 +39,9 @@ const Register: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Sign Up</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">
+          Sign Up
+        </h2>
         {error && (
           <div className="p-2 mt-2 text-sm text-red-600 bg-red-100 rounded">
             {error}
@@ -70,7 +76,11 @@ const Register: React.FC = () => {
             required
           />
           <div className="mt-4">
-            {isLoading ? <Loader size="medium" /> : <SubmitButton label="Sign Up" />}
+            {isLoading ? (
+              <Loader size="medium" />
+            ) : (
+              <SubmitButton label="Sign Up" />
+            )}
           </div>
         </form>
         <div className="mt-4 text-center">

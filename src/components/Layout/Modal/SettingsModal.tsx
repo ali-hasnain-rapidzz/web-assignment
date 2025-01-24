@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from './Modal'; // Import the Modal component
 import MultiSelect from '../MultiSelect'; // Import the MultiSelect component
+import Button from '../Button';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -40,23 +41,27 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       {/* Multi-select preferences */}
       <MultiSelect
         label="Select Your Preferences"
-        options={availablePreferences.map((preference) => ({ id: preference, title: preference }))}
+        options={availablePreferences.map((preference) => ({
+          id: preference,
+          title: preference,
+        }))}
         selectedOptions={preferences}
         onChange={handlePreferenceChange}
       />
 
       {/* Save button */}
       <div className="mt-4 flex justify-end">
-        <button
+        <Button
+          label="Save Changes"
           onClick={handleSaveChanges}
           disabled={isSaveDisabled}
-          className={`px-4 py-2 text-white ${isSaveDisabled ? 'bg-gray-400' : 'bg-blue-600'} rounded-md hover:bg-blue-700`}
-        >
-          Save Changes
-        </button>
+          className="rounded-md"
+        />
       </div>
       {isSaveDisabled && (
-        <p className="text-sm text-red-500 mt-2">You must select at least 3 preferences to save changes.</p>
+        <p className="text-sm text-red-500 mt-2">
+          You must select at least 3 preferences to save changes.
+        </p>
       )}
     </Modal>
   );

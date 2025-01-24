@@ -24,7 +24,9 @@ const InputField: React.FC<InputFieldProps> = ({
   isSearchBar = false, // Default to false for regular input fields
 }) => {
   return (
-    <div className={`mb-4 ${isSearchBar ? 'mt-4 w-full sm:w-1/2 lg:w-1/3' : ''}`}>
+    <div
+      className={`mb-4 ${isSearchBar ? 'mt-4 w-full sm:w-1/2 lg:w-1/3' : ''}`}
+    >
       {/* Render label only for non-search input fields */}
       {!isSearchBar && label && (
         <label htmlFor={id} className="block text-sm font-medium text-gray-700">

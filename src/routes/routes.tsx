@@ -5,7 +5,7 @@ import Register from '../pages/Register';
 import Article from '../pages/article';
 import ArticleDetail from '../pages/articleDetail';
 import PrivateRoute from './privateRoutes'; // Import PrivateRoute
-import Header from '../components/Layout/Header';
+import Header from '../components/Header/Header';
 
 const AppRouter: React.FC = () => {
   return (
@@ -14,10 +14,8 @@ const AppRouter: React.FC = () => {
         {/* Public Routes */}
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
         {/* Protected Routes (Require Authentication) */}
         <Route element={<PrivateRoute />}>
-          {/* Header component is used as a wrapper layout for protected routes */}
           <Route element={<Header />}>
             <Route path="/article" element={<Article />} />
             <Route path="/article/:id" element={<ArticleDetail />} />
