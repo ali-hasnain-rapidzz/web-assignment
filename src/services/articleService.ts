@@ -14,7 +14,7 @@ interface Article {
   const dummyArticles: Article[] = [
     {
       id: '1',
-      title: 'Tech Innovations in 2025',
+      title: 'Tech Innovations in 2026',
       description: 'A deep dive into the latest tech innovations that will shape the future.',
       content: 'Detailed article content on the latest tech innovations.',
       date: '2025-01-01',
