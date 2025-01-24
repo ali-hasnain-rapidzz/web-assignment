@@ -5,6 +5,8 @@ import useAxios from '../hooks/useAxios';
 import authService from '../services/authService';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Layout/Loader';
+import { validateForm } from '../validations/validationUtils';
+import { registerValidationSchema } from '../validations/register.validation';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,16 +15,35 @@ const Register: React.FC = () => {
     password: '',
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { callApi, isLoading, error } = useAxios();
+
+  console.log('isLoadinglkk', isLoading);
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
+
+    // Clear error for the current field
+    setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
   };
+  console.log('formDatakkk', formData);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
 
+    // Validate form
+    const validationErrors = validateForm(formData, registerValidationSchema);
+    console.log('validationErrors888', validationErrors);
+    
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    // Submit form data
     const apiConfig = authService.register(
       formData.name,
       formData.email,
@@ -55,6 +76,7 @@ const Register: React.FC = () => {
             placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
+            error={errors.name} // Pass error dynamically
             required
           />
           <InputField
@@ -64,6 +86,7 @@ const Register: React.FC = () => {
             placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
+            error={errors.email} // Pass error dynamically
             required
           />
           <InputField
@@ -73,13 +96,14 @@ const Register: React.FC = () => {
             placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
+            error={errors.password} // Pass error dynamically
             required
           />
           <div className="mt-4">
             {isLoading ? (
               <Loader size="medium" />
             ) : (
-              <SubmitButton label="Sign Up" />
+              <SubmitButton type='submit' label="Sign Up" />
             )}
           </div>
         </form>

@@ -1,5 +1,3 @@
-// src/components/Articles/InputField.tsx
-
 import React from 'react';
 
 interface InputFieldProps {
@@ -11,6 +9,7 @@ interface InputFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   isSearchBar?: boolean; // Boolean to distinguish if it's a search bar or not
+  error?: string; // Error message to display
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -22,6 +21,7 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
   required = false,
   isSearchBar = false, // Default to false for regular input fields
+  error, // Error message
 }) => {
   return (
     <div
@@ -41,9 +41,11 @@ const InputField: React.FC<InputFieldProps> = ({
         onChange={onChange}
         required={required}
         className={`w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-          isSearchBar ? '' : 'focus:ring-blue-500'
+          error ? 'border-red-500 focus:ring-red-500' : 'focus:ring-blue-500'
         }`}
       />
+      {/* Display error message if provided */}
+      {error && <p className="text-sm text-red-600 mt-1">{error}</p>}
     </div>
   );
 };

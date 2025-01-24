@@ -5,6 +5,8 @@ import useAxios from '../hooks/useAxios';
 import { useNavigate, Link } from 'react-router-dom';
 import Loader from '../components/Layout/Loader';
 import authService from '../services/authService';
+import { loginValidationSchema } from '../validations/login.validation';
+import { validateForm } from '../validations/validationUtils';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -12,16 +14,27 @@ const Login: React.FC = () => {
     password: '',
   });
 
-  const navigate = useNavigate(); // Using useNavigate from react-router-dom v6+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const navigate = useNavigate();
   const { callApi, isLoading, error } = useAxios();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
+    setErrors({ ...errors, [id]: '' }); // Clear error for the specific field
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate form data using the generic function
+    const validationErrors = validateForm(formData, loginValidationSchema);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    // Proceed with the API call if validation passes
     const apiConfig = authService.login(formData.email, formData.password);
     const response = await callApi(apiConfig);
     if (response) {
@@ -40,6 +53,7 @@ const Login: React.FC = () => {
           </div>
         )}
         <form className="mt-6" onSubmit={handleSubmit}>
+        <div className="mb-4">
           <InputField
             id="email"
             label="Email"
@@ -48,7 +62,10 @@ const Login: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            error={errors.email} // Pass error message dynamically
           />
+        </div>
+        <div className="mb-4">
           <InputField
             id="password"
             label="Password"
@@ -56,8 +73,10 @@ const Login: React.FC = () => {
             placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
+            error={errors.password} // Pass error message dynamically
             required
           />
+        </div>
           <div className="mt-4">
             {isLoading ? (
               <Loader size="medium" />
@@ -65,6 +84,7 @@ const Login: React.FC = () => {
               <SubmitButton
                 className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 label="Login"
+                type='submit'
               />
             )}
           </div>
