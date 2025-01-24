@@ -16,7 +16,7 @@ const Login: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
-  const { callApi, isLoading, error } = useAxios();
+  const { callApi, isLoading } = useAxios();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -38,7 +38,6 @@ const Login: React.FC = () => {
     const apiConfig = authService.login(formData.email, formData.password);
     const response = await callApi(apiConfig);
     if (response) {
-      console.log('User logged in successfully:', response);
       navigate('/home');
     }
   };
@@ -47,11 +46,6 @@ const Login: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
-        {error && (
-          <div className="p-2 mt-2 text-sm text-red-600 bg-red-100 rounded">
-            {error}
-          </div>
-        )}
         <form className="mt-6" onSubmit={handleSubmit}>
         <div className="mb-4">
           <InputField

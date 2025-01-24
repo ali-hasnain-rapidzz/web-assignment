@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/Layout/Loader';
 import { validateForm } from '../validations/validationUtils';
 import { registerValidationSchema } from '../validations/register.validation';
+import { showToast } from '../utils/toastUtils'; // Import the showToast function
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,10 +17,7 @@ const Register: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const { callApi, isLoading, error } = useAxios();
-
-  console.log('isLoadinglkk', isLoading);
-  
+  const { callApi, isLoading } = useAxios();  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -28,16 +26,13 @@ const Register: React.FC = () => {
     // Clear error for the current field
     setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
   };
-  console.log('formDatakkk', formData);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
 
     // Validate form
-    const validationErrors = validateForm(formData, registerValidationSchema);
-    console.log('validationErrors888', validationErrors);
-    
+    const validationErrors = validateForm(formData, registerValidationSchema);    
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -52,8 +47,7 @@ const Register: React.FC = () => {
     const response = await callApi(apiConfig);
 
     if (response) {
-      console.log('User registered successfully:', response);
-      // Redirect user or show a success message
+      showToast({ title: 'Success', text: 'User registered successfully!', type: 'success' });
     }
   };
 
@@ -63,11 +57,6 @@ const Register: React.FC = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Sign Up
         </h2>
-        {error && (
-          <div className="p-2 mt-2 text-sm text-red-600 bg-red-100 rounded">
-            {error}
-          </div>
-        )}
         <form className="mt-6" onSubmit={handleSubmit}>
           <InputField
             id="name"

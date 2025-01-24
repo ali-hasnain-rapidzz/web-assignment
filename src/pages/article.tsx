@@ -22,15 +22,13 @@ const Article: React.FC = () => {
   const [articles, setArticles] = useState<IArticle[]>();
 
   // Using the custom hook to call the API
-  const { error, isLoading, callApi } = useAxios();
+  const {  isLoading, callApi } = useAxios();
 
   const fetchArticles = async () => {
     const apiConfig = articleService.getArticleConfig(filters, page);
     const response = await callApi(apiConfig);
     if (response) {
       // Assuming response.data contains articles
-      setArticles(dummyArticles);
-    } else {
       setArticles(dummyArticles);
     }
   };
@@ -46,6 +44,8 @@ const Article: React.FC = () => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, search: e.target.value });
   };
+
+  if (isLoading) return <Loader/>
 
   return (
     <div>
@@ -65,19 +65,6 @@ const Article: React.FC = () => {
             onFilterChange={handleFilterChange}
           />
         </div>
-
-        {isLoading && (
-          <div className="flex justify-center items-center mt-6">
-            <Loader/>
-          </div>
-        )}
-
-        {/* Error State */}
-        {error && (
-          <div className="p-2 mt-2 text-sm text-red-600 bg-red-100 rounded">
-            {error}
-          </div>
-        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {articles?.map((article: any) => (
             <ArticleCard key={article.id} article={article} />

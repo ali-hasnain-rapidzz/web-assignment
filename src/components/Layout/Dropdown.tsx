@@ -41,7 +41,7 @@ const Dropdown: React.FC<{
 
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-40 bg-white text-gray-700 shadow-lg rounded-lg">
-          <ul>
+          <ul className="space-y-0">
             <li>
               <Button
                 onClick={() => {
@@ -49,7 +49,7 @@ const Dropdown: React.FC<{
                   setIsDropdownOpen(false);
                 }}
                 label="Settings"
-                className="block px-4 py-2 text-sm hover:bg-gray-100 w-full text-left"
+                className="block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 text-gray-700 w-full text-left"
               />
             </li>
             <li>
@@ -59,7 +59,7 @@ const Dropdown: React.FC<{
                   onLogout();
                   setIsDropdownOpen(false);
                 }}
-                className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full text-left"
+                className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
               />
             </li>
           </ul>

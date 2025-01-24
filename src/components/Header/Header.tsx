@@ -2,24 +2,16 @@ import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import SettingsModal from '../Layout/Modal/SettingsModal';
 import Dropdown from '../Layout/Dropdown';
+import { availablePreferences } from '../../utils/constants';
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [preferences, setPreferences] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  const availablePreferences = [
-    'NewsAPI',
-    'OpenNews',
-    'NewsCred',
-    'The Guardian',
-    'BBC News',
-    'NewsAPI.org',
-  ];
 
   const handleLogout = () => {
     // Add your logout logic here
-    console.log('User logged out');
     navigate('/login');
   };
 

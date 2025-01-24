@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from './Modal'; // Import the Modal component
 import MultiSelect from '../MultiSelect'; // Import the MultiSelect component
 import Button from '../Button';
+import { showToast } from '../../../utils/toastUtils'; // Import the showToast utility
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -27,10 +28,20 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 
   const handleSaveChanges = () => {
     if (preferences.length >= 3) {
-      alert('Changes saved!');
+      // Use the showToast function to display success message
+      showToast({
+        title: 'Success',
+        text: 'Changes saved!',
+        type: 'success',
+      });
       onClose(); // Close the modal after saving
     } else {
-      alert('Please select at least 3 preferences.');
+      // Use the showToast function to display error message
+      showToast({
+        title: 'Error',
+        text: 'Please select at least 3 preferences.',
+        type: 'error',
+      });
     }
   };
 
