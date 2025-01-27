@@ -26,7 +26,7 @@ const Login: React.FC = () => {
     setErrors({ ...errors, [id]: '' }); // Clear error for the specific field
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {    
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate form data using the generic function
@@ -47,7 +47,11 @@ const Login: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-      <Heading text="Login" level={2} className="text-2xl font-bold text-center text-gray-800"/>
+        <Heading
+          text="Login"
+          level={2}
+          className="text-2xl font-bold text-center text-gray-800"
+        />
         <form className="mt-6" onSubmit={handleSubmit}>
           <div className="mb-4">
             <InputField
@@ -86,10 +90,13 @@ const Login: React.FC = () => {
           </div>
         </form>
         <div className="mt-4 flex justify-center items-center">
-          <Paragraph text="Don't have an account?" className="text-sm text-gray-600"/>
-            <Link to="/" className="text-blue-500 hover:underline">
-              Sign Up
-            </Link>
+          <Paragraph
+            text="Don't have an account?"
+            className="text-sm text-gray-600"
+          />
+          <Link to="/" className="text-blue-500 hover:underline">
+            Sign Up
+          </Link>
         </div>
       </div>
     </div>

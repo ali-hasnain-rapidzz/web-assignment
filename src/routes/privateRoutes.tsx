@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import Header from '@/components/Templates/Header/Header';
 
 // A simple check to determine if the user is authenticated
 const isAuthenticated = () => {
@@ -8,11 +9,16 @@ const isAuthenticated = () => {
 };
 
 const PrivateRoute: React.FC = () => {
-  if (!isAuthenticated()) {
+  if (isAuthenticated()) {
     return <Navigate to="/login" />;
   }
 
-  return <Outlet />; // Render child routes if authenticated
+  return (
+    <div>
+      <Header />
+      <Outlet />
+    </div>
+  ); // Render child routes if authenticated
 };
 
 export default PrivateRoute;

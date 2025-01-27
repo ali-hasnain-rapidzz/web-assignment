@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import SettingsModal from '../SettingsModal';
-import Dropdown from '../../Molecules/Dropdown';
-import { availablePreferences } from '../../../utils/constants';
-import Heading from '../../atoms/Heading';
+import { useNavigate } from 'react-router-dom';
+import SettingsModal from '@/components/Templates/SettingsModal';
+import Dropdown from '@/components/Molecules/Dropdown';
+import { availablePreferences } from '@/utils/constants';
+import Heading from '@/components/atoms/Heading';
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,28 +28,24 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div>
-      <header className="flex justify-between items-center p-4 bg-blue-600 text-white shadow-md">
-        <div className="flex items-center space-x-4">
-          <img src="/assets/logo.png" alt="Logo" className="h-8" />
-          <Heading text="My Application" level={1} className="text-2xl font-semibold"/>
-        </div>
-        <Dropdown
-          onSettingsClick={handleSettingsClick}
-          onLogout={handleLogout}
+    <header className="flex justify-between items-center p-4 bg-blue-600 text-white shadow-md">
+      <div className="flex items-center space-x-4">
+        <img src="/assets/logo.png" alt="Logo" className="h-8" />
+        <Heading
+          text="My Application"
+          level={1}
+          className="text-2xl font-semibold"
         />
-        <SettingsModal
-          isOpen={isModalOpen}
-          onClose={handleModalClose}
-          availablePreferences={availablePreferences}
-          preferences={preferences}
-          onPreferenceChange={handlePreferenceChange}
-        />
-      </header>
-      <main>
-        <Outlet />
-      </main>
-    </div>
+      </div>
+      <Dropdown onSettingsClick={handleSettingsClick} onLogout={handleLogout} />
+      <SettingsModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        availablePreferences={availablePreferences}
+        preferences={preferences}
+        onPreferenceChange={handlePreferenceChange}
+      />
+    </header>
   );
 };
 

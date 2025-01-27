@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PrivateRoute from './privateRoutes'; // Import PrivateRoute
-import Header from '../components/Templates/Header/Header';
-import { protectedRoutes, publicRoutes } from './allRoutes';
+import PrivateRoute from '@/routes/privateRoutes'; // Import PrivateRoute
+import { protectedRoutes, publicRoutes } from '@/routes/allRoutes';
 
 const AppRouter: React.FC = () => {
   return (
@@ -15,11 +14,9 @@ const AppRouter: React.FC = () => {
 
         {/* Protected Routes */}
         <Route element={<PrivateRoute />}>
-          <Route element={<Header />}>
-            {protectedRoutes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.element} />
-            ))}
-          </Route>
+          {protectedRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
         </Route>
       </Routes>
     </Router>

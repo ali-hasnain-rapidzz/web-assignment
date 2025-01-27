@@ -1,8 +1,17 @@
 {
-  "files": [],
-
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "jsx": "react-jsx", // Update this to "react-jsx" for React 17+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2015", // Use ES2015 or higher to support async/await
+    "moduleResolution": "node",
+    "strict": true
+  },
+  "include": [
+    "src"
   ]
 }

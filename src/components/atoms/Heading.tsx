@@ -8,12 +8,8 @@ interface HeadingProps {
 
 const Heading: React.FC<HeadingProps> = ({ text, level = 1, className }) => {
   const Tag = `h${level}` as keyof JSX.IntrinsicElements; // Dynamically set the heading tag
-  
-  return (
-    <Tag className={`font-bold ${className}`}>
-      {text}
-    </Tag>
-  );
+
+  return <Tag className={`font-bold ${className}`}>{text}</Tag>;
 };
 
 export default Heading;

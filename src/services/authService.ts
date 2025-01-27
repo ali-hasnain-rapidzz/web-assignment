@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { LOGIN_URL, REGISTER_URL } from '../utils/urls';
+import { LOGIN_URL, REGISTER_URL } from '@/utils/urls';
 
 const authService = {
   register: (

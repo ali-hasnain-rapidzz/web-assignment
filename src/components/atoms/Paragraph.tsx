@@ -6,11 +6,7 @@ interface ParagraphProps {
 }
 
 const Paragraph: React.FC<ParagraphProps> = ({ text, className }) => {
-  return (
-    <p className={`text-base text-gray-700 ${className}`}>
-      {text}
-    </p>
-  );
+  return <p className={`text-base text-gray-700 ${className}`}>{text}</p>;
 };
 
 export default Paragraph;

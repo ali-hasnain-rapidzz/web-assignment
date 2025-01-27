@@ -1,4 +1,4 @@
-import { ValidationSchema } from '../types/validation.type';
+import { ValidationSchema } from '@/types/validation.type';
 
 export const validateForm = (
   data: Record<string, any>,

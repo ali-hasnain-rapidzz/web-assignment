@@ -21,8 +21,12 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
       className="p-4 bg-white shadow-md rounded-md hover:shadow-lg cursor-pointer"
       onClick={() => navigate(`/article/${article.id}`)}
     >
-      <Heading text={article.title} level={3} className="text-xl font-semibold text-blue-600"/>
-      <Paragraph text={article.description} className="mt-2 text-gray-700"/>
+      <Heading
+        text={article.title}
+        level={3}
+        className="text-xl font-semibold text-blue-600"
+      />
+      <Paragraph text={article.description} className="mt-2 text-gray-700" />
     </div>
   );
 };
