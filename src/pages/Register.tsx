@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import InputField from '@/components/atoms/InputField';
-import SubmitButton from '@/components/atoms/Button';
+import InputField from '@Components/atoms/InputField';
+import SubmitButton from '@Components/atoms/Button';
 import useAxios from '@Hooks/useAxios';
-import authService from '@/services/authService';
+import authService from '@Services/authService';
 import { Link } from 'react-router-dom';
-import Loader from '@/components/Organisms/Loader';
-import { validateForm } from '@/validations/validationUtils';
-import { registerValidationSchema } from '@/validations/register.validation';
-import { showToast } from '@/utils/toastUtils'; // Import the showToast function
-import Heading from '@/components/atoms/Heading';
-import Paragraph from '@/components/atoms/Paragraph';
+import Loader from '@Components/Organisms/Loader';
+import { validateForm } from '@Validations/validationUtils';
+import { registerValidationSchema } from '@Validations/register.validation';
+import { showToast } from '@Utils/toastUtils'; // Import the showToast function
+import Heading from '@Components/atoms/Heading';
+import Paragraph from '@Components/atoms/Paragraph';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SettingsModal from '@Components/Templates/SettingsModal';
 import Dropdown from '@Components/Molecules/Dropdown';
-import { availablePreferences } from '@/utils/constants';
+import { availablePreferences } from '@Utils/constants';
 import Heading from '@Components/atoms/Heading';
 
 const Header: React.FC = () => {

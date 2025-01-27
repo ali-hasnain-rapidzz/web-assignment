@@ -1,6 +1,6 @@
 import React from 'react';
-import { AiOutlineClose } from '../atoms/Icons';
-import Button from '../atoms/Button';
+import { AiOutlineClose } from '@Components/atoms/Icons';
+import Button from '@Components/atoms/Button';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;

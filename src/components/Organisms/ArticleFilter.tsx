@@ -1,7 +1,7 @@
 // src/components/Articles/ArticleFilter.tsx
 
 import React from 'react';
-import Select from '../atoms/Select'; // Import the Select component
+import Select from '@Components/atoms/Select'; // Import the Select component
 
 interface ArticleFilterProps {
   filters: {

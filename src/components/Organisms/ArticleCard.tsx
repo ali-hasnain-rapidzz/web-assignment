@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Heading from '../atoms/Heading';
-import Paragraph from '../atoms/Paragraph';
+import Heading from '@Components/atoms/Heading';
+import Paragraph from '@Components/atoms/Paragraph';
 
 interface ArticleCardProps {
   article: {
