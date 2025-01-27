@@ -1,9 +1,9 @@
 import React from 'react';
 import MultiSelect from '@Components/Molecules/MultiSelect.molecule'; // Import the MultiSelect component
-import Button from '@Components/atoms/Button.atom';
+import Button from '@Components/Atoms/Button.atom';
 import { showToast } from '@Utils/toast.util'; // Import the showToast utility
-import Heading from '@Components/atoms/Heading.atom';
-import Paragraph from '@Components/atoms/Paragraph.atom';
+import Heading from '@Components/Atoms/Heading.atom';
+import Paragraph from '@Components/Atoms/Paragraph.atom';
 import Modal from '@Components/Organisms/Modal.organism';
 
 interface SettingsModalProps {

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import Button from '@Components/atoms/Button.atom';
+import Button from '@Components/Atoms/Button.atom';
 
 const Dropdown: React.FC<{
   onSettingsClick: () => void;
