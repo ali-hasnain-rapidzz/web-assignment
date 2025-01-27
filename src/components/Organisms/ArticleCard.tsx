@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Heading from '../atoms/Heading';
+import Paragraph from '../atoms/Paragraph';
 
 interface ArticleCardProps {
   article: {
@@ -19,8 +21,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
       className="p-4 bg-white shadow-md rounded-md hover:shadow-lg cursor-pointer"
       onClick={() => navigate(`/article/${article.id}`)}
     >
-      <h3 className="text-xl font-semibold text-blue-600">{article.title}</h3>
-      <p className="mt-2 text-gray-700">{article.description}</p>
+      <Heading text={article.title} level={3} className="text-xl font-semibold text-blue-600"/>
+      <Paragraph text={article.description} className="mt-2 text-gray-700"/>
     </div>
   );
 };

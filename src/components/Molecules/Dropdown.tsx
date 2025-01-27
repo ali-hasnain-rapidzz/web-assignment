@@ -59,7 +59,7 @@ const Dropdown: React.FC<{
                   onLogout();
                   setIsDropdownOpen(false);
                 }}
-                className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+                className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
               />
             </li>
           </ul>

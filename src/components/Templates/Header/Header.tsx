@@ -3,12 +3,12 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import SettingsModal from '../SettingsModal';
 import Dropdown from '../../Molecules/Dropdown';
 import { availablePreferences } from '../../../utils/constants';
+import Heading from '../../atoms/Heading';
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [preferences, setPreferences] = useState<string[]>([]);
   const navigate = useNavigate();
-
 
   const handleLogout = () => {
     // Add your logout logic here
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
       <header className="flex justify-between items-center p-4 bg-blue-600 text-white shadow-md">
         <div className="flex items-center space-x-4">
           <img src="/assets/logo.png" alt="Logo" className="h-8" />
-          <h1 className="text-2xl font-semibold">My Application</h1>
+          <Heading text="My Application" level={1} className="text-2xl font-semibold"/>
         </div>
         <Dropdown
           onSettingsClick={handleSettingsClick}

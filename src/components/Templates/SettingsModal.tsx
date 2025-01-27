@@ -3,6 +3,8 @@ import Modal from '../Organisms/Modal'; // Import the Modal component
 import MultiSelect from '../Molecules/MultiSelect'; // Import the MultiSelect component
 import Button from '../atoms/Button';
 import { showToast } from '../../utils/toastUtils'; // Import the showToast utility
+import Heading from '../atoms/Heading';
+import Paragraph from '../atoms/Paragraph';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -47,8 +49,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <h2 className="text-xl font-semibold mb-4">Settings</h2>
-
+      <Heading text="Settings" level={2} className="text-xl font-semibold mb-4"/>
       {/* Multi-select preferences */}
       <MultiSelect
         label="Select Your Preferences"
@@ -70,9 +71,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         />
       </div>
       {isSaveDisabled && (
-        <p className="text-sm text-red-500 mt-2">
-          You must select at least 3 preferences to save changes.
-        </p>
+        <Paragraph text="You must select at least 3 preferences to save changes." className="text-sm text-red-500 mt-2"/>
       )}
     </Modal>
   );

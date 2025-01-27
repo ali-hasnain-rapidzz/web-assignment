@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { articleService } from '../services/articleService';
 import useAxios from '../hooks/useAxios';
 import Loader from '../components/Organisms/Loader';
+import Heading from '../components/atoms/Heading';
+import Paragraph from '../components/atoms/Paragraph';
 
 const ArticleDetail: React.FC = () => {
   const { id } = useParams();
@@ -29,11 +31,9 @@ const ArticleDetail: React.FC = () => {
   return (
     <div>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <h1 className="text-3xl sm:text-4xl font-semibold text-blue-600">
-          {article?.title}
-        </h1>
+      <Heading text={article?.title} level={1} className="text-3xl sm:text-4xl font-semibold text-blue-600"/>
         <div className="mt-4 text-lg text-gray-700 space-y-4">
-          <p>{article?.content}</p>
+          <Paragraph text={article?.content}/>
         </div>
       </div>
     </div>

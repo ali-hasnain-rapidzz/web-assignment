@@ -22,7 +22,7 @@ const Article: React.FC = () => {
   const [articles, setArticles] = useState<IArticle[]>();
 
   // Using the custom hook to call the API
-  const {  isLoading, callApi } = useAxios();
+  const { isLoading, callApi } = useAxios();
 
   const fetchArticles = async () => {
     const apiConfig = articleService.getArticleConfig(filters, page);
@@ -45,7 +45,7 @@ const Article: React.FC = () => {
     setFilters({ ...filters, search: e.target.value });
   };
 
-  if (isLoading) return <Loader/>
+  if (isLoading) return <Loader />;
 
   return (
     <div>

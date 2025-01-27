@@ -1,6 +1,9 @@
-import { ValidationSchema } from "../types/validation.type";
+import { ValidationSchema } from '../types/validation.type';
 
-export const validateForm = (data: Record<string, any>, schema: ValidationSchema) => {
+export const validateForm = (
+  data: Record<string, any>,
+  schema: ValidationSchema
+) => {
   const errors: Record<string, string> = {};
 
   for (const field in schema) {
@@ -17,11 +20,15 @@ export const validateForm = (data: Record<string, any>, schema: ValidationSchema
     }
     // Check for minLength
     else if (rules.minLength && value && value.length < rules.minLength) {
-      errors[field] = rules.errorMessage || `${field} must be at least ${rules.minLength} characters long!`;
+      errors[field] =
+        rules.errorMessage ||
+        `${field} must be at least ${rules.minLength} characters long!`;
     }
     // Check for maxLength
     else if (rules.maxLength && value && value.length > rules.maxLength) {
-      errors[field] = rules.errorMessage || `${field} must not exceed ${rules.maxLength} characters!`;
+      errors[field] =
+        rules.errorMessage ||
+        `${field} must not exceed ${rules.maxLength} characters!`;
     }
   }
 

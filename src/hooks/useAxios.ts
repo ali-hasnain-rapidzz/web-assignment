@@ -13,14 +13,14 @@ const useAxios = <T = any>(): UseAxiosResponse<T> => {
   const callApi = async (
     config: AxiosRequestConfig
   ): Promise<T | undefined> => {
-    setIsLoading(true); 
+    setIsLoading(true);
 
     try {
       const response = await axios(config);
       return response.data;
     } catch (err: any) {
       const errorMessage =
-        err.response?.data?.message || 'An unexpected error occurred.';      
+        err.response?.data?.message || 'An unexpected error occurred.';
       // Show the error toast here
       showToast({
         title: 'Error',

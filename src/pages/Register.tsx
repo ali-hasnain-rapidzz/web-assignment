@@ -8,6 +8,8 @@ import Loader from '../components/Organisms/Loader';
 import { validateForm } from '../validations/validationUtils';
 import { registerValidationSchema } from '../validations/register.validation';
 import { showToast } from '../utils/toastUtils'; // Import the showToast function
+import Heading from '../components/atoms/Heading';
+import Paragraph from '../components/atoms/Paragraph';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +19,7 @@ const Register: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const { callApi, isLoading } = useAxios();  
+  const { callApi, isLoading } = useAxios();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -29,10 +31,9 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
 
     // Validate form
-    const validationErrors = validateForm(formData, registerValidationSchema);    
+    const validationErrors = validateForm(formData, registerValidationSchema);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -47,16 +48,18 @@ const Register: React.FC = () => {
     const response = await callApi(apiConfig);
 
     if (response) {
-      showToast({ title: 'Success', text: 'User registered successfully!', type: 'success' });
+      showToast({
+        title: 'Success',
+        text: 'User registered successfully!',
+        type: 'success',
+      });
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800">
-          Sign Up
-        </h2>
+      <Heading text="Sign Up" level={2} className="text-2xl font-bold text-center text-gray-800"/>
         <form className="mt-6" onSubmit={handleSubmit}>
           <InputField
             id="name"
@@ -88,21 +91,21 @@ const Register: React.FC = () => {
             error={errors.password} // Pass error dynamically
             required
           />
-          <div className="mt-4">
+          <div className="text-center mt-4">
             {isLoading ? (
               <Loader size="medium" />
             ) : (
-              <SubmitButton type='submit' label="Sign Up" />
+              <SubmitButton
+              className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="submit" label="Sign Up" />
             )}
           </div>
         </form>
-        <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{' '}
+        <div className="mt-4 flex justify-center items-center">
+            <Paragraph text="Already have an account?" className="text-sm text-gray-600"/>
             <Link to="/login" className="text-blue-500 hover:underline">
               Login
             </Link>
-          </p>
         </div>
       </div>
     </div>

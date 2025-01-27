@@ -12,7 +12,7 @@ const AppRouter: React.FC = () => {
         {publicRoutes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />
         ))}
-        
+
         {/* Protected Routes */}
         <Route element={<PrivateRoute />}>
           <Route element={<Header />}>

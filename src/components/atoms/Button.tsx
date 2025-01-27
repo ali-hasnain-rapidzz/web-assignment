@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps {
-  label: string;
+  label?: string;
   onClick?: () => void;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       type={type}
-      className={`${className} ${dynamicClasses} px-4 py-2 text-white rounded-md`}
+      className={`${className} ${dynamicClasses} px-4 py-2  rounded-md`}
       disabled={disabled}
     >
       {label && <span>{label}</span>}

@@ -8,7 +8,7 @@ const isAuthenticated = () => {
 };
 
 const PrivateRoute: React.FC = () => {
-  if (isAuthenticated()) {
+  if (!isAuthenticated()) {
     return <Navigate to="/login" />;
   }
 

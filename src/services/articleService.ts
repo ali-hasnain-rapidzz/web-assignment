@@ -2,9 +2,9 @@ import { AxiosRequestConfig } from 'axios';
 import { ARTICLE_URL } from '../utils/urls';
 
 // Simulate an API call and return filtered articles
-export const articleService = { 
+export const articleService = {
   // Dummy function to get article details
-  getArticleDetail:  (id: string): AxiosRequestConfig =>  {
+  getArticleDetail: (id: string): AxiosRequestConfig => {
     return {
       method: 'GET',
       url: ARTICLE_URL, // Adjust this URL to your backend endpoint
