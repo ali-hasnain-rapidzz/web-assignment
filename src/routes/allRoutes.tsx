@@ -1,4 +1,3 @@
-import React from 'react';
 import Article from '@Pages/article';
 import ArticleDetail from '@Pages/articleDetail';
 import Login from '@Pages/Login';

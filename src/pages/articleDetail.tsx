@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { articleService } from '@Services/articleService';
 import useAxios from '@Hooks/useAxios';
-import Loader from '@Components/Organisms/Loader';
-import Heading from '@Components/atoms/Heading';
-import Paragraph from '@Components/atoms/Paragraph';
+import Loader from '@Components/Organisms/Loader.organism';
+import Heading from '@Components/atoms/Heading.atom';
+import Paragraph from '@Components/atoms/Paragraph.atom';
 
 const ArticleDetail: React.FC = () => {
   const { id } = useParams();

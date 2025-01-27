@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import Header from '@Components/Templates/Header/Header';
+import Header from '@Components/Templates/Header.template';
 
 // A simple check to determine if the user is authenticated
 const isAuthenticated = () => {

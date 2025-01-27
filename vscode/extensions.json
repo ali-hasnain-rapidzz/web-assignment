@@ -1,9 +1,8 @@
 {
-    "recommendations": [
-      "esbenp.prettier-vscode", // Prettier extension for code formatting
-      "dbaeumer.vscode-eslint", // ESLint extension for linting
-      "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
-      "mgmcdermott.vscode-language-babel" // Babel for React and JSX support
-    ]
-  }
-  
+  "recommendations": [
+    "esbenp.prettier-vscode", // Prettier extension for code formatting
+    "dbaeumer.vscode-eslint", // ESLint extension for linting
+    "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
+    "mgmcdermott.vscode-language-babel" // Babel for React and JSX support
+  ]
+}
