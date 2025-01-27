@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import InputField from '../components/Layout/InputField';
-import SubmitButton from '../components/Layout/Button';
+import InputField from '../components/atoms/InputField';
+import SubmitButton from '../components/atoms/Button';
 import useAxios from '../hooks/useAxios';
 import authService from '../services/authService';
 import { Link } from 'react-router-dom';
-import Loader from '../components/Layout/Loader';
+import Loader from '../components/Organisms/Loader';
 import { validateForm } from '../validations/validationUtils';
 import { registerValidationSchema } from '../validations/register.validation';
 import { showToast } from '../utils/toastUtils'; // Import the showToast function

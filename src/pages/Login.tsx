@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import InputField from '../components/Layout/InputField';
-import SubmitButton from '../components/Layout/Button';
+import InputField from '../components/atoms/InputField';
+import SubmitButton from '../components/atoms/Button';
 import useAxios from '../hooks/useAxios';
 import { useNavigate, Link } from 'react-router-dom';
-import Loader from '../components/Layout/Loader';
+import Loader from '../components/Organisms/Loader';
 import authService from '../services/authService';
 import { loginValidationSchema } from '../validations/login.validation';
 import { validateForm } from '../validations/validationUtils';

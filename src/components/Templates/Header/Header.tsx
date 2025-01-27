@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import SettingsModal from '../Layout/Modal/SettingsModal';
-import Dropdown from '../Layout/Dropdown';
-import { availablePreferences } from '../../utils/constants';
+import SettingsModal from '../SettingsModal';
+import Dropdown from '../../Molecules/Dropdown';
+import { availablePreferences } from '../../../utils/constants';
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

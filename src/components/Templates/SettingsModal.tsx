@@ -1,8 +1,8 @@
 import React from 'react';
-import Modal from './Modal'; // Import the Modal component
-import MultiSelect from '../MultiSelect'; // Import the MultiSelect component
-import Button from '../Button';
-import { showToast } from '../../../utils/toastUtils'; // Import the showToast utility
+import Modal from '../Organisms/Modal'; // Import the Modal component
+import MultiSelect from '../Molecules/MultiSelect'; // Import the MultiSelect component
+import Button from '../atoms/Button';
+import { showToast } from '../../utils/toastUtils'; // Import the showToast utility
 
 interface SettingsModalProps {
   isOpen: boolean;

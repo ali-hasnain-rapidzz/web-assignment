@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './privateRoutes'; // Import PrivateRoute
-import Header from '../components/Header/Header';
+import Header from '../components/Templates/Header/Header';
 import { protectedRoutes, publicRoutes } from './allRoutes';
 
 const AppRouter: React.FC = () => {

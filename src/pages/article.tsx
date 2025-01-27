@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { articleService } from '../services/articleService';
-import ArticleCard from '../components/Articles/ArticleCard';
-import ArticleFilter from '../components/Articles/ArticleFilter';
-import InputField from '../components/Layout/InputField';
+import ArticleCard from '../components/Organisms/ArticleCard';
+import ArticleFilter from '../components/Organisms/ArticleFilter';
+import InputField from '../components/atoms/InputField';
 import useAxios from '../hooks/useAxios'; // Assuming you have the custom hook for API calls
 import { dummyArticles } from '../utils/dummyResponses';
 import { IArticle } from '../types/article.type';
-import Button from '../components/Layout/Button';
-import Loader from '../components/Layout/Loader';
+import Button from '../components/atoms/Button';
+import Loader from '../components/Organisms/Loader';
 
 const Article: React.FC = () => {
   const [filters, setFilters] = useState({
