@@ -1,7 +1,7 @@
-import Article from '@Pages/article';
-import ArticleDetail from '@Pages/articleDetail';
-import Login from '@Pages/Login';
-import Register from '@Pages/Register';
+import Article from '@Pages/article.page';
+import ArticleDetail from '@Pages/articleDetail.page';
+import Login from '@Pages/Login.page';
+import Register from '@Pages/Register.page';
 
 export const publicRoutes = [
   { path: '/', element: <Register /> },

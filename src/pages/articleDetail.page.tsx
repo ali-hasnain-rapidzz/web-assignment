@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { articleService } from '@Services/articleService';
+import { articleService } from '@Services/articleService.service';
 import useAxios from '@Hooks/useAxios';
 import Loader from '@Components/Organisms/Loader.organism';
 import Heading from '@Components/atoms/Heading.atom';

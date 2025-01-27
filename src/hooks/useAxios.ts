@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
-import { showToast } from '@Utils/toastUtils'; // Import the showToast utility
+import { showToast } from '@Utils/toast.util'; // Import the showToast utility
 
 interface UseAxiosResponse<T> {
   callApi: (config: AxiosRequestConfig) => Promise<T | undefined>;

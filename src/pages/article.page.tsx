@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { articleService } from '@Services/articleService';
+import { articleService } from '@Services/articleService.service';
 import ArticleCard from '@Components/Organisms/ArticleCard.organism';
 import ArticleFilter from '@Components/Organisms/ArticleFilter.organism';
 import InputField from '@Components/atoms/InputField.atom';
 import useAxios from '@Hooks/useAxios'; // Assuming you have the custom hook for API calls
-import { dummyArticles } from '@Utils/dummyResponses';
+import { dummyArticles } from '@Utils/dummyResponses.util';
 import { IArticle } from '@Types/article.type';
 import Button from '@Components/atoms/Button.atom';
 import Loader from '@Components/Organisms/Loader.organism';

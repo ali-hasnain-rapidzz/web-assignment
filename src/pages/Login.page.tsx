@@ -4,7 +4,7 @@ import SubmitButton from '@Components/atoms/Button.atom';
 import useAxios from '@Hooks/useAxios';
 import { useNavigate, Link } from 'react-router-dom';
 import Loader from '@Components/Organisms/Loader.organism';
-import authService from '@Services/authService';
+import authService from '@Services/authService.service';
 import { loginValidationSchema } from '@Validations/login.validation';
 import { validateForm } from '@Validations/validationUtils';
 import Heading from '@Components/atoms/Heading.atom';

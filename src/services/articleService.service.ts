@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { ARTICLE_URL } from '@Utils/urls';
+import { ARTICLE_URL } from '@Utils/urls.util';
 
 // Simulate an API call and return filtered articles
 export const articleService = {
