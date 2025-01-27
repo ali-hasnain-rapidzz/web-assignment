@@ -1,8 +1,8 @@
 import React from 'react';
-import Article from '@/pages/article';
-import ArticleDetail from '@/pages/articleDetail';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
+import Article from '@Pages/article';
+import ArticleDetail from '@Pages/articleDetail';
+import Login from '@Pages/Login';
+import Register from '@Pages/Register';
 
 export const publicRoutes = [
   { path: '/', element: <Register /> },

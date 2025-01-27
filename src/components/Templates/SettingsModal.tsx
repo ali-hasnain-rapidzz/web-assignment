@@ -1,11 +1,11 @@
 import React from 'react';
 // import Modal from '@/col'; // Import the Modal component
-import MultiSelect from '@/components/Molecules/MultiSelect'; // Import the MultiSelect component
-import Button from '@/components/atoms/Button';
-import { showToast } from '@/utils/toastUtils'; // Import the showToast utility
-import Heading from '@/components/atoms/Heading';
-import Paragraph from '@/components/atoms/Paragraph';
-import Modal from '@/components/Organisms/Modal';
+import MultiSelect from '@Components/Molecules/MultiSelect'; // Import the MultiSelect component
+import Button from '@Components/atoms/Button';
+import { showToast } from '@Utils/toastUtils'; // Import the showToast utility
+import Heading from '@Components/atoms/Heading';
+import Paragraph from '@Components/atoms/Paragraph';
+import Modal from '@Components/Organisms/Modal';
 
 interface SettingsModalProps {
   isOpen: boolean;

@@ -1,4 +1,4 @@
-import { IArticle } from '../types/article.type';
+import { IArticle } from '@Types/article.type';
 
 export const dummyArticles: IArticle[] = [
   {

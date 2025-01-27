@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import InputField from '../components/atoms/InputField';
-import SubmitButton from '../components/atoms/Button';
-import useAxios from '../hooks/useAxios';
+import InputField from '@Components/atoms/InputField';
+import SubmitButton from '@Components/atoms/Button';
+import useAxios from '@Hooks/useAxios';
 import { useNavigate, Link } from 'react-router-dom';
-import Loader from '../components/Organisms/Loader';
-import authService from '../services/authService';
-import { loginValidationSchema } from '../validations/login.validation';
-import { validateForm } from '../validations/validationUtils';
-import Heading from '../components/atoms/Heading';
-import Paragraph from '../components/atoms/Paragraph';
+import Loader from '@Components/Organisms/Loader';
+import authService from '@Services/authService';
+import { loginValidationSchema } from '@Validations/login.validation';
+import { validateForm } from '@Validations/validationUtils';
+import Heading from '@Components/atoms/Heading';
+import Paragraph from '@Components/atoms/Paragraph';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PrivateRoute from '@/routes/privateRoutes'; // Import PrivateRoute
+import PrivateRoute from '@Routes/privateRoutes'; // Import PrivateRoute
 import { protectedRoutes, publicRoutes } from '@/routes/allRoutes';
 
 const AppRouter: React.FC = () => {

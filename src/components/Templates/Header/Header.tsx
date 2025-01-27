@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SettingsModal from '@/components/Templates/SettingsModal';
-import Dropdown from '@/components/Molecules/Dropdown';
+import SettingsModal from '@Components/Templates/SettingsModal';
+import Dropdown from '@Components/Molecules/Dropdown';
 import { availablePreferences } from '@/utils/constants';
-import Heading from '@/components/atoms/Heading';
+import Heading from '@Components/atoms/Heading';
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

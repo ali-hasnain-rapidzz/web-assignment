@@ -9,7 +9,16 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src') // Maps @ to the src directory
+        '@': path.resolve(__dirname, 'src'),
+        '@Components': path.resolve(__dirname, 'src/components'),
+        '@Pages': path.resolve(__dirname, 'src/pages'),
+        '@Hooks': path.resolve(__dirname, 'src/hooks'),
+        '@Routes': path.resolve(__dirname, 'src/routes'),
+        '@Services': path.resolve(__dirname, 'src/services'),
+        '@Types': path.resolve(__dirname, 'src/types'),
+        '@Utils': path.resolve(__dirname, 'src/utils'),
+        '@Validations': path.resolve(__dirname, 'src/validations'),
+        '@Styles': path.resolve(__dirname, 'src/styles'),
     }
   },
   css: {

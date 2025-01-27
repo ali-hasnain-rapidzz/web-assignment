@@ -1,4 +1,4 @@
-import { ValidationSchema } from '../types/validation.type';
+import { ValidationSchema } from '@Types/validation.type';
 
 export const registerValidationSchema: ValidationSchema = {
   name: {

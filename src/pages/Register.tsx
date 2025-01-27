@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import InputField from '@/components/atoms/InputField';
 import SubmitButton from '@/components/atoms/Button';
-import useAxios from '@/hooks/useAxios';
+import useAxios from '@Hooks/useAxios';
 import authService from '@/services/authService';
 import { Link } from 'react-router-dom';
 import Loader from '@/components/Organisms/Loader';

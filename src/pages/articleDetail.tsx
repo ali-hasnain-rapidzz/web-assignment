@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { articleService } from '../services/articleService';
-import useAxios from '../hooks/useAxios';
-import Loader from '../components/Organisms/Loader';
-import Heading from '../components/atoms/Heading';
-import Paragraph from '../components/atoms/Paragraph';
+import { articleService } from '@Services/articleService';
+import useAxios from '@Hooks/useAxios';
+import Loader from '@Components/Organisms/Loader';
+import Heading from '@Components/atoms/Heading';
+import Paragraph from '@Components/atoms/Paragraph';
 
 const ArticleDetail: React.FC = () => {
   const { id } = useParams();

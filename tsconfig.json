@@ -2,7 +2,16 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@Components/*": ["src/components/*"],
+      "@Pages/*": ["src/pages/*"],
+      "@Hooks/*": ["src/hooks/*"],
+      "@Routes/*": ["src/routes/*"],
+      "@Services/*": ["src/services/*"],
+      "@Types/*": ["src/types/*"],
+      "@Utils/*": ["src/utils/*"],
+      "@Validations/*": ["src/validations/*"],
+      "@Styles/*": ["src/styles/*"]
     },
     "jsx": "react-jsx", // Update this to "react-jsx" for React 17+
     "esModuleInterop": true,
