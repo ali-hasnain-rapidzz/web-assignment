@@ -39,8 +39,10 @@ const Login: React.FC = () => {
     // Proceed with the API call if validation passes
     const apiConfig = authService.login(formData.email, formData.password);
     const response = await callApi(apiConfig);
+    localStorage.setItem("token", response.token)
+    
     if (response) {
-      navigate('/home');
+      navigate('/article');
     }
   };
 

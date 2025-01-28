@@ -13,8 +13,8 @@ export const registerValidationSchema: ValidationSchema = {
   },
   password: {
     required: true,
-    minLength: 6,
+    minLength: 8,
     maxLength: 20,
-    errorMessage: 'Password must be between 6 and 20 characters long!',
+    errorMessage: 'Password must be between 8 and 20 characters long!',
   },
 };

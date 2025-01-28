@@ -5,11 +5,12 @@ const authService = {
   register: (
     name: string,
     email: string,
-    password: string
+    password: string,
+    preferences: string[]
   ): AxiosRequestConfig => ({
     method: 'POST',
     url: REGISTER_URL,
-    data: { name, email, password },
+    data: { name, email, password, preferences },
   }),
   login: (email: string, password: string): AxiosRequestConfig => {
     return {

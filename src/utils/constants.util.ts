@@ -1,8 +1,9 @@
 export const availablePreferences = [
   'NewsAPI',
-  'OpenNews',
-  'NewsCred',
+  'New York Times',
   'The Guardian',
   'BBC News',
-  'NewsAPI.org',
+ ' Al Jazeera',
+  'CBC News',
+  'CNN News'
 ];

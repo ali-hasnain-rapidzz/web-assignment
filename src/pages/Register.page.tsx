@@ -3,7 +3,7 @@ import InputField from '@Components/Atoms/InputField.atom';
 import SubmitButton from '@Components/Atoms/Button.atom';
 import useAxios from '@Hooks/useAxios';
 import authService from '@Services/authService.service';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loader from '@Components/Organisms/Loader.organism';
 import { validateForm } from '@Validations/validation';
 import { registerValidationSchema } from '@Validations/register.validation';
@@ -19,6 +19,7 @@ const Register: React.FC = () => {
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { callApi, isLoading } = useAxios();
@@ -45,7 +46,7 @@ const Register: React.FC = () => {
     }
 
     // Submit form data
-    const apiConfig = authService.register(formData.name, formData.email, formData.password);
+    const apiConfig = authService.register(formData.name, formData.email, formData.password, preferences);
     const response = await callApi(apiConfig);
 
     if (response) {
@@ -54,6 +55,7 @@ const Register: React.FC = () => {
         text: 'User registered successfully!',
         type: 'success',
       });
+      navigate('/article');
       // Here, you can redirect or handle the next steps (such as showing the preferences modal)
     }
   };
