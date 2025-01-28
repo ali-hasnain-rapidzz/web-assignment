@@ -50,7 +50,7 @@ const Article: React.FC = () => {
   return (
     <div>
       <div className="p-6">
-        <div className="mb-6 flex items-center flex-col sm:flex-row sm:space-x-6">
+        <div className="mb-6 flex items-center justify-center flex-col sm:flex-row sm:space-x-6">
           <InputField
             id="search"
             label="Search"
