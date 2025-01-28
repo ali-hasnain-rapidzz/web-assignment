@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MultiSelect from '@Components/Molecules/MultiSelect.molecule'; // Import the MultiSelect component
 import Button from '@Components/Atoms/Button.atom';
 import { showToast } from '@Utils/toast.util'; // Import the showToast utility
@@ -6,6 +6,9 @@ import Heading from '@Components/Atoms/Heading.atom';
 import Paragraph from '@Components/Atoms/Paragraph.atom';
 import Modal from '@Components/Organisms/Modal.organism';
 import { availablePreferences } from '@Utils/constants.util';
+import prefernceService from '@/services/preferenceService.service';
+import useAxios from '@/hooks/useAxios';
+import Loader from '../Organisms/Loader.organism';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -18,15 +21,37 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
   // Manage preferences locally within the modal
   const [preferences, setPreferences] = useState<string[]>([]);
+  const { callApi, isLoading } = useAxios();
 
   const handlePreferenceChange = (selected: string[]) => {
     setPreferences(selected);
   };
 
+
+  const getUserPrefernce = async()=>{
+    const apiConfig = prefernceService.getPrefernce();
+    const response = await callApi(apiConfig);
+    console.log('responsekkk', response);
+    setPreferences(response.source_names)
+  }
+
+  useEffect(()=>{
+    getUserPrefernce()
+  }, [])
+
+  console.log('preferencesll', preferences);
+  
+
   // Check if user has selected at least 3 preferences
   const isSaveDisabled = preferences.length < 3;
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = async() => {
+
+    // Proceed with the API call if validation passes
+    const apiConfig = prefernceService.postPrefernce(preferences);
+    const response = await callApi(apiConfig);
+    console.log('responsekkk', response);
+    
     if (preferences.length >= 3) {
       // Use the showToast function to display success message
       showToast({
@@ -64,13 +89,17 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       />
 
       {/* Save button */}
-      <div className="mt-4 flex justify-end">
-        <Button
+      <div className="mt-4 flex justify-center">
+      {isLoading ? (
+              <Loader size="medium" />
+            ) :
+            <Button
           label="Save Changes"
           onClick={handleSaveChanges}
           disabled={isSaveDisabled}
           className="rounded-md"
         />
+      }
       </div>
       {isSaveDisabled && (
         <Paragraph

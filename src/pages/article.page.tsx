@@ -4,7 +4,6 @@ import ArticleCard from '@Components/Organisms/ArticleCard.organism';
 import ArticleFilter from '@Components/Organisms/ArticleFilter.organism';
 import InputField from '@Components/Atoms/InputField.atom';
 import useAxios from '@Hooks/useAxios'; // Assuming you have the custom hook for API calls
-import { dummyArticles } from '@Utils/dummyResponses.util';
 import { IArticle } from '@Types/article.type';
 import Button from '@Components/Atoms/Button.atom';
 import Loader from '@Components/Organisms/Loader.organism';
@@ -17,35 +16,48 @@ const Article: React.FC = () => {
     source: '',
     author: '',
   });
+
   const [page, setPage] = useState(1);
+  const [debouncedSearch, setDebouncedSearch] = useState(filters.search);
+  const [articles, setArticles] = useState<IArticle[]>([]);
 
-  const [articles, setArticles] = useState<IArticle[]>();
-
-  // Using the custom hook to call the API
   const { isLoading, callApi } = useAxios();
 
-  const fetchArticles = async () => {
-    const apiConfig = articleService.getArticleConfig(filters, page);
-    const response = await callApi(apiConfig);    
-    if (response) {
-      // Assuming response.data contains articles
-      setArticles(response.data);
-    }
-  };
-
-  useEffect(() => {
-    fetchArticles();
-  }, [filters, page]);
-
-  const handleFilterChange = (newFilters: any) => {
-    setFilters({ ...filters, ...newFilters });
-  };
-
+  // Handle search change and update the filters
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, search: e.target.value });
   };
 
-  console.log('articleskkk', articles);
+  // Debounce effect: Update debouncedSearch after a delay
+  useEffect(() => {
+    const debounceTimeout = setTimeout(() => {
+      setDebouncedSearch(filters.search);
+    }, 500);
+
+    return () => {
+      clearTimeout(debounceTimeout); // Clean up previous timeout
+    };
+  }, [filters.search]); // Runs when filters.search changes
+
+  // Fetch articles from API when debouncedSearch or page changes
+  const fetchArticles = async () => {
+    const apiConfig = articleService.getArticleConfig({ ...filters, search: debouncedSearch }, page);
+    const response = await callApi(apiConfig);
+    if (response) {
+      setArticles(response.data);
+    }
+  };
+
+  // Trigger the fetchArticles when debouncedSearch or page changes
+  useEffect(() => {
+    fetchArticles();
+  }, [debouncedSearch, page, filters]); // Run when debouncedSearch or page changes
+
+  // Handle filter change (e.g., for category, date, etc.)
+  const handleFilterChange = (newFilters: any) => {
+    setFilters({ ...filters, ...newFilters });
+  };
+
   
   if (isLoading) return <Loader />;
 

@@ -3,7 +3,7 @@ export const availablePreferences = [
   'New York Times',
   'The Guardian',
   'BBC News',
- ' Al Jazeera',
+  'Al Jazeera',
   'CBC News',
   'CNN News'
 ];

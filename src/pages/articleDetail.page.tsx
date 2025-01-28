@@ -37,7 +37,7 @@ const ArticleDetail: React.FC = () => {
           className="text-3xl sm:text-4xl font-semibold text-blue-600"
         />
         <div className="mt-4 text-lg text-gray-700 space-y-4">
-          <Paragraph text={article?.content} />
+          <Paragraph text={article?.description} />
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
-// src/components/Articles/ArticleFilter.tsx
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from '@Components/Atoms/Select.atom'; // Import the Select component
+import prefernceService from '@/services/preferenceService.service';
+import useAxios from '@/hooks/useAxios';
+import { articleService } from '@/services/articleService.service';
+import AuthorFilter from '../Molecules/AuthorSelect.molecule';
 
 interface ArticleFilterProps {
   filters: {
@@ -17,6 +19,40 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
   filters,
   onFilterChange,
 }) => {
+  const [preferences, setPreferences] = useState<string[]>([]);
+  const [authorOptions, setAuthorOptions] = useState<{ label: string, value: string }[]>([]);
+  const [search, setSearch] = useState(''); // Track the search term for authors
+  const [page, setPage] = useState(1); // Track the current page of authors
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
+
+  const { callApi } = useAxios();
+
+  // Fetch user preferences (source options)
+  const getUserPrefernce = async () => {
+    const apiConfig = prefernceService.getPrefernce();
+    const response = await callApi(apiConfig);
+    setPreferences(response.source_names);
+  };
+
+  useEffect(() => {
+    getUserPrefernce();
+  }, []);
+
+  // Fetch authors from the API
+  const fetchAuthorOptions = async (page: number, search: string = '') => {
+    setIsLoading(true);
+    const response = await callApi(articleService.getAuthorOptions(page, search));
+    setAuthorOptions(prevAuthors => [
+      ...prevAuthors,
+      ...response.authors?.map((item: string) => ({ label: item, value: item })),
+    ]);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchAuthorOptions(1, search); // Fetch authors when search or page changes
+  }, [search, page]);
+
   // Define the options for each filter
   const dateOptions = [
     { value: 'today', label: 'Today' },
@@ -26,25 +62,35 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
   ];
 
   const categoryOptions = [
-    { value: 'tech', label: 'Technology' },
-    { value: 'health', label: 'Health' },
-    { value: 'sports', label: 'Sports' },
     { value: 'business', label: 'Business' },
+    { value: 'entertainment', label: 'Entertainment' },
+    { value: 'general', label: 'General' },
+    { value: 'health', label: 'Health' },
+    { value: 'science', label: 'Science' },
+    { value: 'sports', label: 'Sports' },
+    { value: 'technology', label: 'Technology' },
   ];
 
-  const sourceOptions = [
-    { value: 'cnn', label: 'CNN' },
-    { value: 'bbc', label: 'BBC' },
-    { value: 'nytimes', label: 'NY Times' },
-  ];
+  // Handle loading more authors when scrolled to the bottom
+  const loadMoreAuthors = () => {
+    if (!isLoading) {
+      setPage(prevPage => {
+        const nextPage = prevPage + 1;
+        fetchAuthorOptions(nextPage, search); // Fetch authors for the next page
+        return nextPage;
+      });
+    }
+  };
 
-  const authorOptions = [
-    { value: 'john', label: 'John Doe' },
-    { value: 'jane', label: 'Jane Smith' },
-  ];
+  // Handle search input change
+  const handleSearchChange = (e: string) => {
+    setSearch(e); // Update the search term
+    setPage(1); // Reset to the first page when search changes
+    setAuthorOptions([]); // Clear existing author options
+  };
 
   return (
-    <div className="flex flex-wrap  gap-4 sm:flex-nowrap">
+    <div className="flex flex-wrap gap-4 sm:flex-nowrap">
       {/* Date Filter */}
       <Select
         value={filters.date}
@@ -65,16 +111,19 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
       <Select
         value={filters.source}
         onChange={(e) => onFilterChange({ source: e.target.value })}
-        options={sourceOptions}
+        options={preferences.map((item) => ({ label: item, value: item }))}
         placeholder="Select Source"
       />
 
-      {/* Author Filter */}
-      <Select
+      {/* Author Filter with Search and Infinite Scroll */}
+      <AuthorFilter
         value={filters.author}
-        onChange={(e) => onFilterChange({ author: e.target.value })}
+        onChange={(val) => onFilterChange({ author: val })}
         options={authorOptions}
-        placeholder="Select Author"
+        loadMoreAuthors={loadMoreAuthors} // Pass loadMoreAuthors function
+        isLoading={isLoading} // Pass loading state to display when fetching
+        search={search} // Pass the search term
+        onSearchChange={handleSearchChange} // Pass the handleSearchChange function
       />
     </div>
   );
