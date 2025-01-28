@@ -26,10 +26,10 @@ const Article: React.FC = () => {
 
   const fetchArticles = async () => {
     const apiConfig = articleService.getArticleConfig(filters, page);
-    const response = await callApi(apiConfig);
+    const response = await callApi(apiConfig);    
     if (response) {
       // Assuming response.data contains articles
-      setArticles(dummyArticles);
+      setArticles(response.data);
     }
   };
 
@@ -45,6 +45,8 @@ const Article: React.FC = () => {
     setFilters({ ...filters, search: e.target.value });
   };
 
+  console.log('articleskkk', articles);
+  
   if (isLoading) return <Loader />;
 
   return (

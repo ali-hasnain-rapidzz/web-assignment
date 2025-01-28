@@ -7,8 +7,7 @@ export const articleService = {
   getArticleDetail: (id: string): CustomAxiosRequestConfig => {
     return {
       method: 'GET',
-      url: ARTICLE_URL, // Adjust this URL to your backend endpoint
-      params: { id }, // Merge filters and page number
+      url: `${ARTICLE_URL}/${id}`, // The ID is now part of the path
       privateRoute: true
     };
   },

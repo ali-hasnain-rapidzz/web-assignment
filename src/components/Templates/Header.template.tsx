@@ -10,6 +10,7 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     // Add your logout logic here
+    localStorage.setItem("token", '')
     navigate('/login');
   };
 

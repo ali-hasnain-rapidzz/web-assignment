@@ -5,11 +5,11 @@ import Header from '@Components/Templates/Header.template';
 // A simple check to determine if the user is authenticated
 const isAuthenticated = () => {
   // Implement your authentication check logic, e.g., checking localStorage or session
-  return localStorage.getItem('auth_token') !== null;
+  return localStorage.getItem('token');
 };
 
 const PrivateRoute: React.FC = () => {
-  if (isAuthenticated()) {
+  if (!isAuthenticated()) {
     return <Navigate to="/login" />;
   }
 
