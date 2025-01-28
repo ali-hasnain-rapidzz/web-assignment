@@ -49,7 +49,7 @@ const Dropdown: React.FC<{
                   setIsDropdownOpen(false);
                 }}
                 label="Settings"
-                className="block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 text-gray-700 w-full text-left"
+                className="block px-4 py-2 rounded-none text-sm hover:bg-gray-100 hover:text-gray-900 text-gray-700 w-full text-left"
               />
             </li>
             <li>
@@ -59,7 +59,7 @@ const Dropdown: React.FC<{
                   onLogout();
                   setIsDropdownOpen(false);
                 }}
-                className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
+                className="block px-4 py-2 rounded-none text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 w-full text-left"
               />
             </li>
           </ul>

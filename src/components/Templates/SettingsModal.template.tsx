@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MultiSelect from '@Components/Molecules/MultiSelect.molecule'; // Import the MultiSelect component
 import Button from '@Components/Atoms/Button.atom';
 import { showToast } from '@Utils/toast.util'; // Import the showToast utility
@@ -10,18 +10,17 @@ import { availablePreferences } from '@Utils/constants.util';
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  preferences: string[];
-  onPreferenceChange: (selectedPreferences: string[]) => void;
 }
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
   isOpen,
   onClose,
-  preferences,
-  onPreferenceChange,
 }) => {
+  // Manage preferences locally within the modal
+  const [preferences, setPreferences] = useState<string[]>([]);
+
   const handlePreferenceChange = (selected: string[]) => {
-    onPreferenceChange(selected);
+    setPreferences(selected);
   };
 
   // Check if user has selected at least 3 preferences
@@ -32,7 +31,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       // Use the showToast function to display success message
       showToast({
         title: 'Success',
-        text: 'Changes saved!',
+        text: 'Preferences saved successfully!',
         type: 'success',
       });
       onClose(); // Close the modal after saving

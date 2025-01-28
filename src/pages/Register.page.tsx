@@ -23,7 +23,6 @@ const Register: React.FC = () => {
   const { callApi, isLoading } = useAxios();
 
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [preferences, setPreferences] = useState<string[]>([]);
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,8 +127,6 @@ const Register: React.FC = () => {
       <SettingsModal
         isOpen={isSettingsModalOpen}
         onClose={() => setIsSettingsModalOpen(false)}
-        preferences={preferences}
-        onPreferenceChange={setPreferences}
       />
     </div>
   );

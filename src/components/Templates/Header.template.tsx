@@ -6,7 +6,6 @@ import Heading from '@Components/Atoms/Heading.atom';
 
 const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [preferences, setPreferences] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -22,9 +21,7 @@ const Header: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const handlePreferenceChange = (selected: string[]) => {
-    setPreferences(selected);
-  };
+
 
   return (
     <header className="flex justify-between items-center p-4 bg-blue-600 text-white shadow-md">
@@ -40,8 +37,6 @@ const Header: React.FC = () => {
       <SettingsModal
         isOpen={isModalOpen}
         onClose={handleModalClose}
-        preferences={preferences}
-        onPreferenceChange={handlePreferenceChange}
       />
     </header>
   );
