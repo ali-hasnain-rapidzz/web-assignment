@@ -37,17 +37,6 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // If less than 3 preferences selected, show error
-    if (preferences.length < 3) {
-      showToast({
-        title: 'Error',
-        text: 'Please select at least 3 preferences.',
-        type: 'error',
-      });
-      return;
-    }
-
-
     // Validate form
     const validationErrors = validateForm(formData, registerValidationSchema);
     if (Object.keys(validationErrors).length > 0) {
@@ -67,8 +56,11 @@ const Register: React.FC = () => {
       });
       // Here, you can redirect or handle the next steps (such as showing the preferences modal)
     }
-
   };
+    // Check if any field is empty or preferences are less than 3
+    const isSubmitDisabled =
+    !formData.name || !formData.email || !formData.password || preferences.length < 3;
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -133,7 +125,7 @@ const Register: React.FC = () => {
                 className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="submit"
                 label="Sign Up"
-                disabled={preferences.length < 3} // Disable submit button if less than 3 preferences selected
+                disabled={isSubmitDisabled} // Disable submit button if less than 3 preferences selected
               />
             )}
           </div>

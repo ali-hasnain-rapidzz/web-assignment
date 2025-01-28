@@ -44,6 +44,10 @@ const Login: React.FC = () => {
     }
   };
 
+     // Check if any field is empty or preferences are less than 3
+     const isSubmitDisabled = !formData.email || !formData.password;
+ 
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
@@ -85,6 +89,7 @@ const Login: React.FC = () => {
                 className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 label="Login"
                 type="submit"
+                disabled={isSubmitDisabled}
               />
             )}
           </div>

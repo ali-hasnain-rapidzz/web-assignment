@@ -30,8 +30,9 @@ const InputField: React.FC<InputFieldProps> = ({
       {/* Render label only for non-search input fields */}
       {!isSearchBar && label && (
         <label htmlFor={id} className="block text-sm font-medium text-gray-700">
-          {label}
-        </label>
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>} {/* Add asterisk if required */}
+      </label>
       )}
       <input
         type={type}
