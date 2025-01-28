@@ -5,11 +5,11 @@ import { showToast } from '@Utils/toast.util'; // Import the showToast utility
 import Heading from '@Components/Atoms/Heading.atom';
 import Paragraph from '@Components/Atoms/Paragraph.atom';
 import Modal from '@Components/Organisms/Modal.organism';
+import { availablePreferences } from '@Utils/constants.util';
 
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  availablePreferences: string[];
   preferences: string[];
   onPreferenceChange: (selectedPreferences: string[]) => void;
 }
@@ -17,7 +17,6 @@ interface SettingsModalProps {
 const SettingsModal: React.FC<SettingsModalProps> = ({
   isOpen,
   onClose,
-  availablePreferences,
   preferences,
   onPreferenceChange,
 }) => {

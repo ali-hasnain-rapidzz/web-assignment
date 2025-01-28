@@ -7,9 +7,10 @@ import { Link } from 'react-router-dom';
 import Loader from '@Components/Organisms/Loader.organism';
 import { validateForm } from '@Validations/validation';
 import { registerValidationSchema } from '@Validations/register.validation';
-import { showToast } from '@Utils/toast.util'; // Import the showToast function
+import { showToast } from '@Utils/toast.util';
 import Heading from '@Components/Atoms/Heading.atom';
 import Paragraph from '@Components/Atoms/Paragraph.atom';
+import SettingsModal from '@Components/Templates/SettingsModal.template';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,10 @@ const Register: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { callApi, isLoading } = useAxios();
+
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [preferences, setPreferences] = useState<string[]>([]);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -50,9 +55,10 @@ const Register: React.FC = () => {
     if (response) {
       showToast({
         title: 'Success',
-        text: 'User registered successfully!',
+        text: 'User registered successfully! Please set your preferences.',
         type: 'success',
       });
+      setIsSettingsModalOpen(true); // Open preferences modal
     }
   };
 
@@ -117,6 +123,14 @@ const Register: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      {/* Preferences Modal */}
+      <SettingsModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+        preferences={preferences}
+        onPreferenceChange={setPreferences}
+      />
     </div>
   );
 };
