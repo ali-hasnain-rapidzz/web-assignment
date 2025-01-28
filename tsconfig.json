@@ -18,7 +18,10 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2015", // Use ES2015 or higher to support async/await
     "moduleResolution": "node",
-    "strict": true
+    "strict": true,
+    "outDir": "./dist", // Specify the output directory for compiled files
+    "rootDir": "./src"  // Specify the root directory of your source file
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"] // Avoid processing these folders
 }

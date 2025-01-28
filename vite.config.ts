@@ -25,4 +25,8 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   },
+  build: {
+    outDir: 'dist', // Ensure build files are output to the `dist` folder
+    emptyOutDir: true, // Clear the folder before each build
+  },
 });
