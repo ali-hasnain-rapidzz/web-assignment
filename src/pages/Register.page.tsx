@@ -10,7 +10,8 @@ import { registerValidationSchema } from '@Validations/register.validation';
 import { showToast } from '@Utils/toast.util';
 import Heading from '@Components/Atoms/Heading.atom';
 import Paragraph from '@Components/Atoms/Paragraph.atom';
-import SettingsModal from '@Components/Templates/SettingsModal.template';
+import MultiSelect from '@Components/Molecules/MultiSelect.molecule'; // MultiSelect component for preference selection
+import { availablePreferences } from '@Utils/constants.util'; // Your available preferences
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,20 +22,31 @@ const Register: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { callApi, isLoading } = useAxios();
-
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-
+  const [preferences, setPreferences] = useState<string[]>([]); // Track selected preferences
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
-
-    // Clear error for the current field
     setErrors((prevErrors) => ({ ...prevErrors, [id]: '' }));
+  };
+
+  const handlePreferenceChange = (selected: string[]) => {
+    setPreferences(selected);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // If less than 3 preferences selected, show error
+    if (preferences.length < 3) {
+      showToast({
+        title: 'Error',
+        text: 'Please select at least 3 preferences.',
+        type: 'error',
+      });
+      return;
+    }
+
 
     // Validate form
     const validationErrors = validateForm(formData, registerValidationSchema);
@@ -44,32 +56,27 @@ const Register: React.FC = () => {
     }
 
     // Submit form data
-    const apiConfig = authService.register(
-      formData.name,
-      formData.email,
-      formData.password
-    );
+    const apiConfig = authService.register(formData.name, formData.email, formData.password);
     const response = await callApi(apiConfig);
 
     if (response) {
       showToast({
         title: 'Success',
-        text: 'User registered successfully! Please set your preferences.',
+        text: 'User registered successfully!',
         type: 'success',
       });
-      setIsSettingsModalOpen(true); // Open preferences modal
+      // Here, you can redirect or handle the next steps (such as showing the preferences modal)
     }
+
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-        <Heading
-          text="Sign Up"
-          level={2}
-          className="text-2xl font-bold text-center text-gray-800"
-        />
+        <Heading text="Sign Up" level={2} className="text-2xl font-bold text-center text-gray-800" />
+        
         <form className="mt-6" onSubmit={handleSubmit}>
+          {/* Name, Email, and Password Fields */}
           <InputField
             id="name"
             label="Name"
@@ -77,7 +84,7 @@ const Register: React.FC = () => {
             placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
-            error={errors.name} // Pass error dynamically
+            error={errors.name}
             required
           />
           <InputField
@@ -87,7 +94,7 @@ const Register: React.FC = () => {
             placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
-            error={errors.email} // Pass error dynamically
+            error={errors.email}
             required
           />
           <InputField
@@ -97,9 +104,27 @@ const Register: React.FC = () => {
             placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
-            error={errors.password} // Pass error dynamically
+            error={errors.password}
             required
           />
+          
+          {/* MultiSelect for Preferences */}
+          <div className="mt-4">
+            <MultiSelect
+              label="Select Your News Preferences (At least 3)"
+              options={availablePreferences.map((preference) => ({
+                id: preference,
+                title: preference,
+              }))}
+              selectedOptions={preferences}
+              onChange={handlePreferenceChange}
+            />
+            {preferences.length < 3 && (
+              <p className="text-sm text-red-500 mt-2">You must select at least 3 preferences to proceed.</p>
+            )}
+          </div>
+
+          {/* Submit Button */}
           <div className="text-center mt-4">
             {isLoading ? (
               <Loader size="medium" />
@@ -108,26 +133,20 @@ const Register: React.FC = () => {
                 className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="submit"
                 label="Sign Up"
+                disabled={preferences.length < 3} // Disable submit button if less than 3 preferences selected
               />
             )}
           </div>
         </form>
+
+        {/* Already have an account link */}
         <div className="mt-4 flex justify-center items-center">
-          <Paragraph
-            text="Already have an account?"
-            className="text-sm text-gray-600"
-          />
+          <Paragraph text="Already have an account?" className="text-sm text-gray-600" />
           <Link to="/login" className="text-blue-500 hover:underline">
             Login
           </Link>
         </div>
       </div>
-
-      {/* Preferences Modal */}
-      <SettingsModal
-        isOpen={isSettingsModalOpen}
-        onClose={() => setIsSettingsModalOpen(false)}
-      />
     </div>
   );
 };
