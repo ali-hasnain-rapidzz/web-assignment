@@ -3,19 +3,7 @@ import Select from 'react-select';
 import useAxios from '@/hooks/useAxios';
 import { articleService } from '@/services/articleService.service';
 import { debounce } from 'lodash';
-
-// Type for authors options
-interface IAuthor {
-  label: string;
-  value: string;
-}
-
-// Props for the AuthorFilter component
-interface AuthorFilterProps {
-  value: string;
-  onChange: (author: string) => void;
-  initialAuthors: IAuthor[]; // Initial authors from parent
-}
+import { AuthorFilterProps, IAuthor } from '@/types/article.type';
 
 const AuthorFilter: React.FC<AuthorFilterProps> = ({ value, onChange, initialAuthors }) => {
   const [authors, setAuthors] = useState<IAuthor[]>([]); // Store authors

@@ -2,17 +2,12 @@ import React from 'react';
 import Select from '@Components/Atoms/Select.atom';
 import AuthorFilter from '../Molecules/AuthorSelect.molecule';
 import { categoryOptions, dateOptions } from '@/utils/constants.util';
-
+import { Filters, IAuthor } from '@/types/article.type';
 interface ArticleFilterProps {
-  filters: {
-    date: string;
-    category: string;
-    source: string;
-    author: string;
-  };
-  onFilterChange: (newFilters: any) => void;
+  filters: Filters;
+  onFilterChange: (newFilters: Partial<Filters>) => void;
   preferences: string[];
-  initialAuthors: { label: string; value: string }[]; // Pass initial authors
+  initialAuthors: IAuthor[]; // Proper type for initial authors
 }
 
 const ArticleFilter: React.FC<ArticleFilterProps> = ({

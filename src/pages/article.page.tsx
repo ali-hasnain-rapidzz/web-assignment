@@ -5,10 +5,11 @@ import ArticleCard from '@Components/Organisms/ArticleCard.organism';
 import ArticleFilter from '@Components/Organisms/ArticleFilter.organism';
 import InputField from '@Components/Atoms/InputField.atom';
 import useAxios from '@Hooks/useAxios';
-import { IArticle } from '@Types/article.type';
+import { IArticle, IAuthor } from '@Types/article.type';
 import Button from '@Components/Atoms/Button.atom';
 import Loader from '@Components/Organisms/Loader.organism';
 import prefernceService from '@/services/preferenceService.service';
+
 
 const Article: React.FC = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Article: React.FC = () => {
   };
   const initialPage = Number(queryParams.get('page')) || 1;
   const [preferences, setPreferences] = useState<string[]>([]);
-  const [initialAuthors, setInitialAuthors] = useState<any>([]);
+  const [initialAuthors, setInitialAuthors] = useState<IAuthor[]>([]);
 
   // State Initialization
   const [filters, setFilters] = useState(initialFilters);
