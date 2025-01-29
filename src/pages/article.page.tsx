@@ -105,7 +105,7 @@ const Article: React.FC = () => {
     };
 
     const getAuthors = async () => {
-      const apiConfig = articleService.getAuthorOptions(1);
+      const apiConfig = articleService.getAuthorOptions(1, filters.author);
       const response = await callApi(apiConfig);
       if (response?.authors) {
         // Ensure authors are properly formatted as { label, value } objects
@@ -113,7 +113,6 @@ const Article: React.FC = () => {
           label: name,
           value: name,
         }));
-    
         setInitialAuthors(formattedAuthors); // Set properly formatted authors
       }
     };
