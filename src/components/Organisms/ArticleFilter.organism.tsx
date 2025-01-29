@@ -101,7 +101,7 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
       <Select
         value={filters.source}
         onChange={(e) => onFilterChange({ source: e.target.value })}
-        options={preferences.map((item) => ({ label: item, value: item }))}
+        options={preferences?.map((item) => ({ label: item, value: item }))}
         placeholder="Select Source"
       />
       {/* Author Filter with Search and Infinite Scroll */}

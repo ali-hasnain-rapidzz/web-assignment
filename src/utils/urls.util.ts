@@ -1,4 +1,4 @@
-const baseUrl = 'https://0d33-119-153-109-104.ngrok-free.app/api';
+const baseUrl = 'https://0d33-119-153-109-105.ngrok-free.app/api';
 
 export const LOGIN_URL = `${baseUrl}/login`;
 export const REGISTER_URL = `${baseUrl}/register`;

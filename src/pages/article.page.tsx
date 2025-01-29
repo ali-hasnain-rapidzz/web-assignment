@@ -82,26 +82,23 @@ const Article: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {articles?.length > 0 && articles?.map((article: any) => (
-            <div>
             <ArticleCard key={article.id} article={article} />
-            <div className="mt-6 flex justify-center space-x-4">
-            <Button
-              label="Previous"
-              onClick={() => setPage(page - 1)}
-              disabled={page === 1}
-              className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
-            />
-            <span className="text-lg">{page}</span>
-            <Button
-              label="Next"
-              onClick={() => setPage(page + 1)}
-              className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
-            />
-          </div>
-          </div>
           ))}
         </div>
-    
+       {articles?.length > 0 && <div className="mt-6 flex justify-center space-x-4">
+          <Button
+            label="Previous"
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+            className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
+          />
+          <span className="text-lg">{page}</span>
+          <Button
+            label="Next"
+            onClick={() => setPage(page + 1)}
+            className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+          />
+        </div>}
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ const Select: React.FC<SelectProps> = ({
       className="px-4 py-2 border border-gray-300 rounded-md w-full sm:w-auto"
     >
       <option value="">{placeholder}</option>
-      {options.map((option) => (
+      {options?.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>
