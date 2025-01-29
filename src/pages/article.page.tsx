@@ -72,16 +72,14 @@ const Article: React.FC = () => {
 
   // Handle filter updates (excluding search)
   const handleFilterChange = (newFilters: Partial<typeof filters>) => {
-    const updatedFilters = { ...filters, ...newFilters };
-    setFilters(updatedFilters);
+    const updatedFilters = { ...filters, ...newFilters};
     setPage(1); // Reset to first page on filter change
-    updateUrlWithFilters(updatedFilters);
+    setFilters(updatedFilters);
   };
 
-  // Handle page change
+  // Handle page change and update URL
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-    updateUrlWithFilters(filters); // Update URL with new page
   };
 
   // Parse URL query parameters and update filters on initial load
@@ -100,8 +98,15 @@ const Article: React.FC = () => {
       source: initialFilters.source || '',
       author: initialFilters.author || '',
     });
+
+    // Set page from query parameters
     setPage(Number(initialFilters.page) || 1);
   }, [location.search]);
+
+  // Update URL whenever page or filters change
+  useEffect(() => {
+    updateUrlWithFilters(filters);
+  }, [page, filters]); // Only update URL when page or filters change
 
   if (isLoading) return <Loader />;
 
@@ -124,7 +129,7 @@ const Article: React.FC = () => {
           />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          {articles?.length > 0 && articles?.map((article: any) => (
+          {articles?.length > 0 && articles.map((article: IArticle) => (
             <ArticleCard key={article.id} article={article} />
           ))}
         </div>

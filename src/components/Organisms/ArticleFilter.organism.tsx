@@ -26,9 +26,8 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
   >([]);
   const [search, setSearch] = useState(''); // Track the search term for authors
   const [page, setPage] = useState(1); // Track the current page of authors
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
 
-  const { callApi } = useAxios();
+  const { callApi, isLoading } = useAxios();
 
   // Fetch user preferences (source options)
   const getUserPrefernce = async () => {
@@ -43,7 +42,6 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
 
   // Fetch authors from the API
   const fetchAuthorOptions = async (page: number, search: string = '') => {
-    setIsLoading(true);
     const response = await callApi(
       articleService.getAuthorOptions(page, search)
     );
@@ -56,7 +54,6 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
         })),
       ]);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
