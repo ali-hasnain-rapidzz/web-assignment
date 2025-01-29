@@ -8,6 +8,7 @@ import useAxios from '@Hooks/useAxios';
 import { IArticle } from '@Types/article.type';
 import Button from '@Components/Atoms/Button.atom';
 import Loader from '@Components/Organisms/Loader.organism';
+import prefernceService from '@/services/preferenceService.service';
 
 const Article: React.FC = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Article: React.FC = () => {
     author: queryParams.get('author') || '',
   };
   const initialPage = Number(queryParams.get('page')) || 1;
+  const [preferences, setPreferences] = useState<string[]>([]);
 
   // State Initialization
   const [filters, setFilters] = useState(initialFilters);
@@ -93,6 +95,18 @@ const Article: React.FC = () => {
     updateUrlWithFilters(filters, newPage);
   };
 
+    // Fetch user preferences (source options)
+    const getUserPrefernce = async () => {
+      const apiConfig = prefernceService.getPrefernce();
+      const response = await callApi(apiConfig);
+      setPreferences(response?.source_names);
+    };
+  
+    useEffect(() => {
+      getUserPrefernce();
+    }, []);
+  
+
   if (isLoading) return <Loader />;
 
   return (
@@ -108,7 +122,7 @@ const Article: React.FC = () => {
             onChange={handleSearchChange}
             isSearchBar
           />
-          <ArticleFilter filters={filters} onFilterChange={handleFilterChange} />
+          <ArticleFilter filters={filters} preferences={preferences} onFilterChange={handleFilterChange} />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {articles?.length > 0 &&

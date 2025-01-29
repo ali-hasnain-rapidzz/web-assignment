@@ -14,13 +14,14 @@ interface ArticleFilterProps {
     author: string;
   };
   onFilterChange: (newFilters: any) => void;
+  preferences: string[]
 }
 
 const ArticleFilter: React.FC<ArticleFilterProps> = ({
   filters,
   onFilterChange,
+  preferences
 }) => {
-  const [preferences, setPreferences] = useState<string[]>([]);
   const [authorOptions, setAuthorOptions] = useState<
     { label: string; value: string }[]
   >([]);
@@ -29,16 +30,6 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
 
   const { callApi, isLoading } = useAxios();
 
-  // Fetch user preferences (source options)
-  const getUserPrefernce = async () => {
-    const apiConfig = prefernceService.getPrefernce();
-    const response = await callApi(apiConfig);
-    setPreferences(response?.source_names);
-  };
-
-  useEffect(() => {
-    getUserPrefernce();
-  }, []);
 
   // Fetch authors from the API
   const fetchAuthorOptions = async (page: number, search: string = '') => {
