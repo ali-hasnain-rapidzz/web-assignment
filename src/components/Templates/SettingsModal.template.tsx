@@ -11,11 +11,10 @@ import useAxios from '@/hooks/useAxios';
 import Loader from '../Organisms/Loader.organism';
 
 interface SettingsModalProps {
-  isOpen: boolean;
   onClose: () => void;
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
+const SettingsModal: React.FC<SettingsModalProps> = ({ onClose }) => {
   // Manage preferences locally within the modal
   const [preferences, setPreferences] = useState<string[]>([]);
   const { callApi, isLoading } = useAxios();
@@ -53,42 +52,48 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <Heading
-        text="Settings"
-        level={2}
-        className="text-xl font-semibold mb-4"
-      />
-      {/* Multi-select preferences */}
-      <MultiSelect
-        label="Select Your Preferences"
-        options={availablePreferences.map((preference) => ({
-          id: preference,
-          title: preference,
-        }))}
-        selectedOptions={preferences}
-        onChange={handlePreferenceChange}
-      />
+    <Modal isOpen={true} onClose={onClose}>
+      <div className="relative">
+        {isLoading && (
+          <div>
+            <div
+            className="absolute inset-0 bg-white opacity-50 z-10 backdrop-blur-md"
+            style={{ top: 0 }}
+          />
+            <div className="absolute backdrop-blur-md  top-40 left-1/2 transform -translate-x-1/2 z-30">
+              <Loader size="medium" />
+            </div>
+          </div>
+        )}
+        <Heading text="Settings" level={2} className="text-xl font-semibold mb-4 z-20" />
+        {/* Multi-select preferences */}
+        <MultiSelect
+          label="Select Your Preferences"
+          options={availablePreferences.map((preference) => ({
+            id: preference,
+            title: preference,
+          }))}
+          selectedOptions={preferences}
+          onChange={handlePreferenceChange}
+        />
 
-      {/* Save button */}
-      <div className="mt-4 flex justify-center">
-        {isLoading ? (
-          <Loader size="medium" />
-        ) : (
-          <Button
-            label="Save Changes"
-            onClick={handleSaveChanges}
-            disabled={isSaveDisabled}
-            className="rounded-md"
+        {/* Save button */}
+        <div className="mt-4 flex justify-center relative z-20">
+            <Button
+              label="Save Changes"
+              onClick={handleSaveChanges}
+              disabled={isSaveDisabled}
+              className="rounded-md"
+            />
+        </div>
+        
+        {isSaveDisabled && (
+          <Paragraph
+            text="You must select at least 3 preferences to save changes."
+            className="text-sm text-red-500 mt-2 z-20"
           />
         )}
       </div>
-      {isSaveDisabled && (
-        <Paragraph
-          text="You must select at least 3 preferences to save changes."
-          className="text-sm text-red-500 mt-2"
-        />
-      )}
     </Modal>
   );
 };

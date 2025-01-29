@@ -35,10 +35,10 @@ const Header: React.FC = () => {
         />
       </div>
       <Dropdown onSettingsClick={handleSettingsClick} onLogout={handleLogout} />
-      <SettingsModal
-        isOpen={isModalOpen}
-        onClose={handleModalClose}
-      />
+      {isModalOpen &&  <SettingsModal
+          onClose={handleModalClose}
+        />
+      }
     </header>
   );
 };

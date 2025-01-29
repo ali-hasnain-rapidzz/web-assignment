@@ -82,7 +82,7 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-4 sm:flex-nowrap">
+    <div className="flex max-w-full flex-wrap gap-4 sm:flex-nowrap">
       {/* Date Filter */}
       <Select
         value={filters.date}

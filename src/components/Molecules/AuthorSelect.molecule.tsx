@@ -36,6 +36,10 @@ const AuthorFilter: React.FC<AuthorFilterProps> = ({
           ...provided,
           width: '300px', // Ensure dropdown menu width matches
         }),
+        placeholder: (provided) => ({
+          ...provided,
+          color: 'black', // Ensure dropdown menu width matches
+        }),
         menuList: (provided) => ({
           ...provided,
           maxHeight: '200px', // Set max height for scrolling

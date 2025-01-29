@@ -33,16 +33,12 @@ const Dropdown: React.FC<{
       <Button
         label="" // or a value if you need the label text
         onClick={toggleDropdown}
-        className="flex items-center space-x-2 bg-blue-500 rounded-full px-4 py-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        className="flex items-center space-x-2 bg-blue-500 rounded-full px-4 py-2 hover:bg-blue-700"
       >
-        {/* <div className="w-8 h-8 bg-gray-500 text-white flex items-center justify-center rounded-full">
-          <span className="text-lg font-bold">A</span>
-        </div> */}
-        <span className="hidden capitalize sm:block">{userName}</span>
+        <span className="capitalize block">{userName}</span>
       </Button>
-
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white text-gray-700 shadow-lg rounded-lg">
+        <div className="absolute z-[1000] right-0 mt-2 w-40 bg-white text-gray-700 shadow-lg rounded-lg">
           <ul className="space-y-0">
             <li>
               <Button
