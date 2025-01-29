@@ -8,7 +8,7 @@ export const articleService = {
     return {
       method: 'GET',
       url: `${ARTICLE_URL}/${id}`, // The ID is now part of the path
-      privateRoute: true
+      privateRoute: true,
     };
   },
   getArticleConfig: (filters: any, page: number): CustomAxiosRequestConfig => {
@@ -16,10 +16,13 @@ export const articleService = {
       method: 'GET',
       url: ARTICLE_URL, // Adjust this URL to your backend endpoint
       params: { ...filters, page }, // Merge filters and page number
-      privateRoute: true
+      privateRoute: true,
     };
   },
-  getAuthorOptions: (page: number, search: string): CustomAxiosRequestConfig => {
+  getAuthorOptions: (
+    page: number,
+    search: string
+  ): CustomAxiosRequestConfig => {
     return {
       method: 'GET',
       url: AUTHOR_URL, // The ID is now part of the path
@@ -27,7 +30,7 @@ export const articleService = {
       params: {
         page, // Pass the page parameter to get paginated authors
         limit: 20, // Number of authors to fetch per page
-        search
+        search,
       },
     };
   },

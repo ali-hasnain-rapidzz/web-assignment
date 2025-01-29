@@ -15,10 +15,7 @@ interface SettingsModalProps {
   onClose: () => void;
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({
-  isOpen,
-  onClose,
-}) => {
+const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   // Manage preferences locally within the modal
   const [preferences, setPreferences] = useState<string[]>([]);
   const { callApi, isLoading } = useAxios();
@@ -27,32 +24,24 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     setPreferences(selected);
   };
 
-
-  const getUserPrefernce = async()=>{
+  const getUserPrefernce = async () => {
     const apiConfig = prefernceService.getPrefernce();
     const response = await callApi(apiConfig);
-    console.log('responsekkk', response);
-    setPreferences(response.source_names)
-  }
+    setPreferences(response?.source_names);
+  };
 
-  useEffect(()=>{
-    getUserPrefernce()
-  }, [])
-
-  console.log('preferencesll', preferences);
-  
+  useEffect(() => {
+    getUserPrefernce();
+  }, []);
 
   // Check if user has selected at least 3 preferences
-  const isSaveDisabled = preferences.length < 3;
+  const isSaveDisabled = preferences?.length < 3;
 
-  const handleSaveChanges = async() => {
-
+  const handleSaveChanges = async () => {
     // Proceed with the API call if validation passes
     const apiConfig = prefernceService.postPrefernce(preferences);
     const response = await callApi(apiConfig);
-    console.log('responsekkk', response);
-    
-    if (preferences.length >= 3) {
+    if (response) {
       // Use the showToast function to display success message
       showToast({
         title: 'Success',
@@ -60,13 +49,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         type: 'success',
       });
       onClose(); // Close the modal after saving
-    } else {
-      // Use the showToast function to display error message
-      showToast({
-        title: 'Error',
-        text: 'Please select at least 3 preferences.',
-        type: 'error',
-      });
     }
   };
 
@@ -90,16 +72,16 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 
       {/* Save button */}
       <div className="mt-4 flex justify-center">
-      {isLoading ? (
-              <Loader size="medium" />
-            ) :
-            <Button
-          label="Save Changes"
-          onClick={handleSaveChanges}
-          disabled={isSaveDisabled}
-          className="rounded-md"
-        />
-      }
+        {isLoading ? (
+          <Loader size="medium" />
+        ) : (
+          <Button
+            label="Save Changes"
+            onClick={handleSaveChanges}
+            disabled={isSaveDisabled}
+            className="rounded-md"
+          />
+        )}
       </div>
       {isSaveDisabled && (
         <Paragraph

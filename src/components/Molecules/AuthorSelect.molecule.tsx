@@ -6,7 +6,7 @@ import Select from 'react-select';
 interface AuthorFilterProps {
   value: string;
   onChange: (author: string) => void;
-  options: { label: string, value: string }[];
+  options: { label: string; value: string }[];
   loadMoreAuthors: () => void;
   isLoading: boolean;
   search: string;
@@ -20,21 +20,21 @@ const AuthorFilter: React.FC<AuthorFilterProps> = ({
   loadMoreAuthors,
   isLoading,
   search,
-  onSearchChange
+  onSearchChange,
 }) => {
   return (
     <div>
       {/* Search for authors */}
-      <input
+      {/* <input
         type="text"
         value={search}
         onChange={(e) => onSearchChange(e.target.value)} // Update search term on change
         placeholder="Search for authors..."
         style={{ marginBottom: '10px', padding: '8px', width: '100%' }}
-      />
+      /> */}
 
       <Select
-        value={options.find(option => option.value === value)} // Find selected author
+        value={options.find((option) => option.value === value)} // Find selected author
         onChange={(selectedOption: any) => onChange(selectedOption.value)} // Handle author change
         options={options}
         placeholder="Select Author"
@@ -48,7 +48,6 @@ const AuthorFilter: React.FC<AuthorFilterProps> = ({
           }),
         }}
       />
-      {isLoading && <p>Loading more authors...</p>}
     </div>
   );
 };

@@ -10,7 +10,7 @@ export const publicRoutes = [
 
 export const protectedRoutes = [
   {
-    path: '/article',   
+    path: '/article',
     element: <Article />,
   },
   {

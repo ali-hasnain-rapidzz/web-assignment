@@ -4,6 +4,7 @@ import prefernceService from '@/services/preferenceService.service';
 import useAxios from '@/hooks/useAxios';
 import { articleService } from '@/services/articleService.service';
 import AuthorFilter from '../Molecules/AuthorSelect.molecule';
+import { categoryOptions, dateOptions } from '@/utils/constants.util';
 
 interface ArticleFilterProps {
   filters: {
@@ -20,7 +21,9 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
   onFilterChange,
 }) => {
   const [preferences, setPreferences] = useState<string[]>([]);
-  const [authorOptions, setAuthorOptions] = useState<{ label: string, value: string }[]>([]);
+  const [authorOptions, setAuthorOptions] = useState<
+    { label: string; value: string }[]
+  >([]);
   const [search, setSearch] = useState(''); // Track the search term for authors
   const [page, setPage] = useState(1); // Track the current page of authors
   const [isLoading, setIsLoading] = useState(false); // Track loading state
@@ -31,7 +34,7 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
   const getUserPrefernce = async () => {
     const apiConfig = prefernceService.getPrefernce();
     const response = await callApi(apiConfig);
-    setPreferences(response.source_names);
+    setPreferences(response?.source_names);
   };
 
   useEffect(() => {
@@ -41,11 +44,18 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
   // Fetch authors from the API
   const fetchAuthorOptions = async (page: number, search: string = '') => {
     setIsLoading(true);
-    const response = await callApi(articleService.getAuthorOptions(page, search));
-    setAuthorOptions(prevAuthors => [
-      ...prevAuthors,
-      ...response.authors?.map((item: string) => ({ label: item, value: item })),
-    ]);
+    const response = await callApi(
+      articleService.getAuthorOptions(page, search)
+    );
+    if(response){
+      setAuthorOptions((prevAuthors) => [
+        ...prevAuthors,
+        ...response.authors?.map((item: string) => ({
+          label: item,
+          value: item,
+        })),
+      ]);
+    }
     setIsLoading(false);
   };
 
@@ -53,28 +63,10 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
     fetchAuthorOptions(1, search); // Fetch authors when search or page changes
   }, [search, page]);
 
-  // Define the options for each filter
-  const dateOptions = [
-    { value: 'today', label: 'Today' },
-    { value: 'week', label: 'This Week' },
-    { value: 'month', label: 'This Month' },
-    { value: 'year', label: 'This Year' },
-  ];
-
-  const categoryOptions = [
-    { value: 'business', label: 'Business' },
-    { value: 'entertainment', label: 'Entertainment' },
-    { value: 'general', label: 'General' },
-    { value: 'health', label: 'Health' },
-    { value: 'science', label: 'Science' },
-    { value: 'sports', label: 'Sports' },
-    { value: 'technology', label: 'Technology' },
-  ];
-
   // Handle loading more authors when scrolled to the bottom
   const loadMoreAuthors = () => {
     if (!isLoading) {
-      setPage(prevPage => {
+      setPage((prevPage) => {
         const nextPage = prevPage + 1;
         fetchAuthorOptions(nextPage, search); // Fetch authors for the next page
         return nextPage;
@@ -98,8 +90,6 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
         options={dateOptions}
         placeholder="Select Date"
       />
-
-      {/* Category Filter */}
       <Select
         value={filters.category}
         onChange={(e) => onFilterChange({ category: e.target.value })}
@@ -114,17 +104,16 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
         options={preferences.map((item) => ({ label: item, value: item }))}
         placeholder="Select Source"
       />
-
       {/* Author Filter with Search and Infinite Scroll */}
-      <AuthorFilter
-        value={filters.author}
+      {/* <AuthorFilter
+        value={filters?.author}
         onChange={(val) => onFilterChange({ author: val })}
         options={authorOptions}
         loadMoreAuthors={loadMoreAuthors} // Pass loadMoreAuthors function
         isLoading={isLoading} // Pass loading state to display when fetching
         search={search} // Pass the search term
         onSearchChange={handleSearchChange} // Pass the handleSearchChange function
-      />
+      /> */}
     </div>
   );
 };

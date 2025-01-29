@@ -46,12 +46,17 @@ const Register: React.FC = () => {
     }
 
     // Submit form data
-    const apiConfig = authService.register(formData.name, formData.email, formData.password, preferences);
+    const apiConfig = authService.register(
+      formData.name,
+      formData.email,
+      formData.password,
+      preferences
+    );
     const response = await callApi(apiConfig);
 
     if (response) {
-      localStorage.setItem("token", response.token)
-      localStorage.setItem("username", response.user.name)
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('username', response.user.name);
       showToast({
         title: 'Success',
         text: 'User registered successfully!',
@@ -61,16 +66,22 @@ const Register: React.FC = () => {
       // Here, you can redirect or handle the next steps (such as showing the preferences modal)
     }
   };
-    // Check if any field is empty or preferences are less than 3
-    const isSubmitDisabled =
-    !formData.name || !formData.email || !formData.password || preferences.length < 3;
-
+  // Check if any field is empty or preferences are less than 3
+  const isSubmitDisabled =
+    !formData.name ||
+    !formData.email ||
+    !formData.password ||
+    preferences.length < 3;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-        <Heading text="Sign Up" level={2} className="text-2xl font-bold text-center text-gray-800" />
-        
+        <Heading
+          text="Sign Up"
+          level={2}
+          className="text-2xl font-bold text-center text-gray-800"
+        />
+
         <form className="mt-6" onSubmit={handleSubmit}>
           {/* Name, Email, and Password Fields */}
           <InputField
@@ -103,7 +114,7 @@ const Register: React.FC = () => {
             error={errors.password}
             required
           />
-          
+
           {/* MultiSelect for Preferences */}
           <div className="mt-4">
             <MultiSelect
@@ -116,7 +127,9 @@ const Register: React.FC = () => {
               onChange={handlePreferenceChange}
             />
             {preferences.length < 3 && (
-              <p className="text-sm text-red-500 mt-2">You must select at least 3 preferences to proceed.</p>
+              <p className="text-sm text-red-500 mt-2">
+                You must select at least 3 preferences to proceed.
+              </p>
             )}
           </div>
 
@@ -137,7 +150,10 @@ const Register: React.FC = () => {
 
         {/* Already have an account link */}
         <div className="mt-4 flex justify-center items-center">
-          <Paragraph text="Already have an account?" className="text-sm text-gray-600" />
+          <Paragraph
+            text="Already have an account?"
+            className="text-sm text-gray-600"
+          />
           <Link to="/login" className="text-blue-500 hover:underline">
             Login
           </Link>

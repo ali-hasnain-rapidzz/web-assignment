@@ -1,5 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import PrivateRoute from '@Routes/privateRoutes'; // Import PrivateRoute
 import { protectedRoutes, publicRoutes } from '@Routes/allRoutes';
 

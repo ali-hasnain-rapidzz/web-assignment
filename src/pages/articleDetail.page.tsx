@@ -21,7 +21,7 @@ const ArticleDetail: React.FC = () => {
   };
 
   useEffect(() => {
-    if (id) { 
+    if (id) {
       fetchArticleDetail(id);
     }
   }, [id]); // Run the effect only when the `id` changes

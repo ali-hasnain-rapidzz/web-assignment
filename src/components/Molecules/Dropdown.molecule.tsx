@@ -19,8 +19,7 @@ const Dropdown: React.FC<{
     }
   };
 
-  const userName = localStorage.getItem("username")
-
+  const userName = localStorage.getItem('username');
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);

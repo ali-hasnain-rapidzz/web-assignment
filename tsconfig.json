@@ -20,7 +20,7 @@
     "moduleResolution": "node",
     "strict": true,
     "outDir": "./dist", // Specify the output directory for compiled files
-    "rootDir": "./src"  // Specify the root directory of your source file
+    "rootDir": "./src" // Specify the root directory of your source file
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"] // Avoid processing these folders

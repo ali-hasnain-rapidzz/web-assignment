@@ -40,15 +40,14 @@ const Login: React.FC = () => {
     const apiConfig = authService.login(formData.email, formData.password);
     const response = await callApi(apiConfig);
     if (response) {
-      localStorage.setItem("token", response.token)
-      localStorage.setItem("username", response.user.name)
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('username', response.user.name);
       navigate('/article');
     }
   };
 
-     // Check if any field is empty or preferences are less than 3
-     const isSubmitDisabled = !formData.email || !formData.password;
- 
+  // Check if any field is empty or preferences are less than 3
+  const isSubmitDisabled = !formData.email || !formData.password;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

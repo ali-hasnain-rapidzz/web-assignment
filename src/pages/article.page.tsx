@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { articleService } from '@Services/articleService.service';
 import ArticleCard from '@Components/Organisms/ArticleCard.organism';
 import ArticleFilter from '@Components/Organisms/ArticleFilter.organism';
 import InputField from '@Components/Atoms/InputField.atom';
-import useAxios from '@Hooks/useAxios'; // Assuming you have the custom hook for API calls
+import useAxios from '@Hooks/useAxios';
 import { IArticle } from '@Types/article.type';
 import Button from '@Components/Atoms/Button.atom';
 import Loader from '@Components/Organisms/Loader.organism';
@@ -23,42 +23,43 @@ const Article: React.FC = () => {
 
   const { isLoading, callApi } = useAxios();
 
-  // Handle search change and update the filters
+  // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters({ ...filters, search: e.target.value });
+    setFilters((prev) => ({ ...prev, search: e.target.value }));
   };
 
-  // Debounce effect: Update debouncedSearch after a delay
+  // Debounce search input
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       setDebouncedSearch(filters.search);
     }, 500);
 
-    return () => {
-      clearTimeout(debounceTimeout); // Clean up previous timeout
-    };
-  }, [filters.search]); // Runs when filters.search changes
+    return () => clearTimeout(debounceTimeout);
+  }, [filters.search]);
 
-  // Fetch articles from API when debouncedSearch or page changes
-  const fetchArticles = async () => {
-    const apiConfig = articleService.getArticleConfig({ ...filters, search: debouncedSearch }, page);
+  // Fetch articles when filters (except search) or pagination changes
+  const fetchArticles = useCallback(async () => {
+    const apiConfig = articleService.getArticleConfig(
+      { ...filters, search: debouncedSearch }, // Use debounced search
+      page
+    );
     const response = await callApi(apiConfig);
     if (response) {
       setArticles(response.data);
     }
-  };
+  }, [debouncedSearch, page, filters.date, filters.category, filters.source, filters.author]); // Exclude filters.search
 
-  // Trigger the fetchArticles when debouncedSearch or page changes
+  // Trigger API fetch when dependencies change
   useEffect(() => {
     fetchArticles();
-  }, [debouncedSearch, page, filters]); // Run when debouncedSearch or page changes
+  }, [fetchArticles]);
 
-  // Handle filter change (e.g., for category, date, etc.)
-  const handleFilterChange = (newFilters: any) => {
-    setFilters({ ...filters, ...newFilters });
+  // Handle filter updates (excluding search)
+  const handleFilterChange = (newFilters: Partial<typeof filters>) => {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+    setPage(1); // Reset to first page on filter change
   };
 
-  
   if (isLoading) return <Loader />;
 
   return (
@@ -84,7 +85,6 @@ const Article: React.FC = () => {
             <ArticleCard key={article.id} article={article} />
           ))}
         </div>
-        {/* Pagination */}
         <div className="mt-6 flex justify-center space-x-4">
           <Button
             label="Previous"
