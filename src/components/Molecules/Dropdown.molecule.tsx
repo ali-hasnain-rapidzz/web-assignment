@@ -19,6 +19,9 @@ const Dropdown: React.FC<{
     }
   };
 
+  const userName = localStorage.getItem("username")
+
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -33,10 +36,10 @@ const Dropdown: React.FC<{
         onClick={toggleDropdown}
         className="flex items-center space-x-2 bg-blue-500 rounded-full px-4 py-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
       >
-        <div className="w-8 h-8 bg-gray-500 text-white flex items-center justify-center rounded-full">
+        {/* <div className="w-8 h-8 bg-gray-500 text-white flex items-center justify-center rounded-full">
           <span className="text-lg font-bold">A</span>
-        </div>
-        <span className="hidden sm:block">Username</span>
+        </div> */}
+        <span className="hidden capitalize sm:block">{userName}</span>
       </Button>
 
       {isDropdownOpen && (
@@ -49,7 +52,7 @@ const Dropdown: React.FC<{
                   setIsDropdownOpen(false);
                 }}
                 label="Settings"
-                className="block px-4 py-2 rounded-none text-sm hover:bg-gray-100 hover:text-gray-900 text-gray-700 w-full text-left"
+                className="block px-4 py-2 rounded-none  text-sm hover:bg-gray-100 hover:text-gray-900 text-gray-700 w-full text-left"
               />
             </li>
             <li>

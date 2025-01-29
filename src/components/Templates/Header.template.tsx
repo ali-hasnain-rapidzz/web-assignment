@@ -11,6 +11,7 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     // Add your logout logic here
     localStorage.setItem("token", '')
+    localStorage.setItem("username", '')
     navigate('/login');
   };
 
@@ -27,9 +28,8 @@ const Header: React.FC = () => {
   return (
     <header className="flex justify-between items-center p-4 bg-blue-600 text-white shadow-md">
       <div className="flex items-center space-x-4">
-        <img src="/assets/logo.png" alt="Logo" className="h-8" />
         <Heading
-          text="My Application"
+          text="News Article"
           level={1}
           className="text-2xl font-semibold"
         />

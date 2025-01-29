@@ -50,6 +50,8 @@ const Register: React.FC = () => {
     const response = await callApi(apiConfig);
 
     if (response) {
+      localStorage.setItem("token", response.token)
+      localStorage.setItem("username", response.user.name)
       showToast({
         title: 'Success',
         text: 'User registered successfully!',
