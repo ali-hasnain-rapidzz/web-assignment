@@ -105,15 +105,14 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
         placeholder="Select Source"
       />
       {/* Author Filter with Search and Infinite Scroll */}
-      {/* <AuthorFilter
+      <AuthorFilter
         value={filters?.author}
         onChange={(val) => onFilterChange({ author: val })}
         options={authorOptions}
         loadMoreAuthors={loadMoreAuthors} // Pass loadMoreAuthors function
         isLoading={isLoading} // Pass loading state to display when fetching
-        search={search} // Pass the search term
         onSearchChange={handleSearchChange} // Pass the handleSearchChange function
-      /> */}
+      />
     </div>
   );
 };

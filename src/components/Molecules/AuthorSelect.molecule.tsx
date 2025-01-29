@@ -1,5 +1,3 @@
-// AuthorSelect.molecule.tsx
-
 import React from 'react';
 import Select from 'react-select';
 
@@ -9,7 +7,6 @@ interface AuthorFilterProps {
   options: { label: string; value: string }[];
   loadMoreAuthors: () => void;
   isLoading: boolean;
-  search: string;
   onSearchChange: (search: string) => void;
 }
 
@@ -19,36 +16,33 @@ const AuthorFilter: React.FC<AuthorFilterProps> = ({
   options,
   loadMoreAuthors,
   isLoading,
-  search,
   onSearchChange,
 }) => {
   return (
-    <div>
-      {/* Search for authors */}
-      {/* <input
-        type="text"
-        value={search}
-        onChange={(e) => onSearchChange(e.target.value)} // Update search term on change
-        placeholder="Search for authors..."
-        style={{ marginBottom: '10px', padding: '8px', width: '100%' }}
-      /> */}
-
-      <Select
-        value={options.find((option) => option.value === value)} // Find selected author
-        onChange={(selectedOption: any) => onChange(selectedOption.value)} // Handle author change
-        options={options}
-        placeholder="Select Author"
-        onMenuScrollToBottom={loadMoreAuthors} // Trigger load more authors when scrolled to bottom
-        isLoading={isLoading} // Show loading state if true
-        styles={{
-          menu: (provided) => ({
-            ...provided,
-            maxHeight: 200,
-            overflowY: 'auto',
-          }),
-        }}
-      />
-    </div>
+    <Select
+      value={options.find((option) => option.value === value)}
+      onChange={(selectedOption: any) => onChange(selectedOption.value)}
+      options={options}
+      placeholder="Search and select author"
+      onInputChange={(inputValue) => onSearchChange(inputValue)}
+      onMenuScrollToBottom={loadMoreAuthors}
+      isLoading={isLoading}
+      styles={{
+        control: (provided) => ({
+          ...provided,
+          width: '300px', // Adjust dropdown width
+        }),
+        menu: (provided) => ({
+          ...provided,
+          width: '300px', // Ensure dropdown menu width matches
+        }),
+        menuList: (provided) => ({
+          ...provided,
+          maxHeight: '200px', // Set max height for scrolling
+          overflowY: 'auto', // Enable scroll only inside options
+        }),
+      }}
+    />
   );
 };
 
