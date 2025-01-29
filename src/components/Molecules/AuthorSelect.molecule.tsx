@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Select from 'react-select';
 import useAxios from '@/hooks/useAxios';
 import { articleService } from '@/services/articleService.service';
@@ -33,10 +33,13 @@ const AuthorFilter: React.FC<AuthorFilterProps> = ({ value, onChange, initialAut
   }, []);
 
   // Debounced version of the search function to optimize API calls
-  const debouncedSearch = debounce((query: string) => {
-    setPage(1); // Reset to page 1 when search term changes
-    fetchAuthors(1, query, true); // Fetch new results
-  }, 500);
+  const debouncedSearch = useCallback(
+    debounce((query: string) => {
+      setPage(1); // Reset to page 1 when search term changes
+      fetchAuthors(1, query, true); // Fetch new results
+    }, 500),
+    []
+  );
 
   // Fetch authors from API
   const fetchAuthors = async (pageNumber: number, query: string, reset: boolean = false) => {
