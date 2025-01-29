@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { articleService } from '@Services/articleService.service';
 import ArticleCard from '@Components/Organisms/ArticleCard.organism';
 import ArticleFilter from '@Components/Organisms/ArticleFilter.organism';
@@ -9,6 +10,9 @@ import Button from '@Components/Atoms/Button.atom';
 import Loader from '@Components/Organisms/Loader.organism';
 
 const Article: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [filters, setFilters] = useState({
     search: '',
     date: '',
@@ -54,11 +58,50 @@ const Article: React.FC = () => {
     fetchArticles();
   }, [fetchArticles]);
 
+  // Update URL when filters change
+  const updateUrlWithFilters = (filters: any) => {
+    const queryParams = new URLSearchParams();
+    Object.keys(filters).forEach((key) => {
+      if (filters[key]) {
+        queryParams.set(key, filters[key]);
+      }
+    });
+    queryParams.set('page', page.toString()); // Add page to the query params
+    navigate({ search: queryParams.toString() });
+  };
+
   // Handle filter updates (excluding search)
   const handleFilterChange = (newFilters: Partial<typeof filters>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
+    const updatedFilters = { ...filters, ...newFilters };
+    setFilters(updatedFilters);
     setPage(1); // Reset to first page on filter change
+    updateUrlWithFilters(updatedFilters);
   };
+
+  // Handle page change
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    updateUrlWithFilters(filters); // Update URL with new page
+  };
+
+  // Parse URL query parameters and update filters on initial load
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const initialFilters: any = {};
+    queryParams.forEach((value, key) => {
+      initialFilters[key] = value;
+    });
+
+    // Set filters state based on query parameters
+    setFilters({
+      search: initialFilters.search || '',
+      date: initialFilters.date || '',
+      category: initialFilters.category || '',
+      source: initialFilters.source || '',
+      author: initialFilters.author || '',
+    });
+    setPage(Number(initialFilters.page) || 1);
+  }, [location.search]);
 
   if (isLoading) return <Loader />;
 
@@ -85,20 +128,22 @@ const Article: React.FC = () => {
             <ArticleCard key={article.id} article={article} />
           ))}
         </div>
-       {articles?.length > 0 && <div className="mt-6 flex justify-center space-x-4">
-          <Button
-            label="Previous"
-            onClick={() => setPage(page - 1)}
-            disabled={page === 1}
-            className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
-          />
-          <span className="text-lg">{page}</span>
-          <Button
-            label="Next"
-            onClick={() => setPage(page + 1)}
-            className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
-          />
-        </div>}
+        {articles?.length > 0 && (
+          <div className="mt-6 flex justify-center space-x-4">
+            <Button
+              label="Previous"
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1}
+              className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
+            />
+            <span className="text-lg">{page}</span>
+            <Button
+              label="Next"
+              onClick={() => handlePageChange(page + 1)}
+              className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

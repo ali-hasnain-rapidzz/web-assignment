@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { articleService } from '@Services/articleService.service';
 import useAxios from '@Hooks/useAxios';
 import Loader from '@Components/Organisms/Loader.organism';
@@ -38,6 +38,12 @@ const ArticleDetail: React.FC = () => {
         />
         <div className="mt-4 text-lg text-gray-700 space-y-4">
           <Paragraph text={article?.description} />
+            <Link 
+              to={article?.url} 
+              className="text-blue-600 hover:underline inline"
+            >
+              <span> See More</span>
+            </Link>
         </div>
       </div>
     </div>

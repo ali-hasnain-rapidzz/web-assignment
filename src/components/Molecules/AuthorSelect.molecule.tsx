@@ -8,6 +8,7 @@ interface AuthorFilterProps {
   loadMoreAuthors: () => void;
   isLoading: boolean;
   onSearchChange: (search: string) => void;
+  fetchAuthorOptions: (page: number, search: string) => void; // API call function
 }
 
 const AuthorFilter: React.FC<AuthorFilterProps> = ({
@@ -17,16 +18,30 @@ const AuthorFilter: React.FC<AuthorFilterProps> = ({
   loadMoreAuthors,
   isLoading,
   onSearchChange,
+  fetchAuthorOptions,
 }) => {
+
+  const handleChange = (selectedOption: any) => {
+    // If the option is empty (deselect), call the API with empty value
+    const selectedValue = selectedOption?.value || '';
+    onChange(selectedValue);
+
+    // If deselected, call the API with an empty string to reset authors
+    if (selectedValue === '') {
+      fetchAuthorOptions(1, ''); // Call API with empty search value
+    }
+  };
+
   return (
     <Select
       value={options.find((option) => option.value === value)}
-      onChange={(selectedOption: any) => onChange(selectedOption.value)}
+      onChange={handleChange}
       options={options}
       placeholder="Search and select author"
       onInputChange={(inputValue) => onSearchChange(inputValue)}
       onMenuScrollToBottom={loadMoreAuthors}
       isLoading={isLoading}
+      isClearable={true} // Allow clearing the selection
       styles={{
         control: (provided) => ({
           ...provided,
@@ -38,7 +53,7 @@ const AuthorFilter: React.FC<AuthorFilterProps> = ({
         }),
         placeholder: (provided) => ({
           ...provided,
-          color: 'black', // Ensure dropdown menu width matches
+          color: 'black', // Change placeholder color
         }),
         menuList: (provided) => ({
           ...provided,

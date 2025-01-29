@@ -112,6 +112,7 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
         loadMoreAuthors={loadMoreAuthors} // Pass loadMoreAuthors function
         isLoading={isLoading} // Pass loading state to display when fetching
         onSearchChange={handleSearchChange} // Pass the handleSearchChange function
+        fetchAuthorOptions={fetchAuthorOptions}
       />
     </div>
   );
