@@ -25,6 +25,7 @@ const Article: React.FC = () => {
   };
   const initialPage = Number(queryParams.get('page')) || 1;
   const [preferences, setPreferences] = useState<string[]>([]);
+  const [initialAuthors, setInitialAuthors] = useState<any>([]);
 
   // State Initialization
   const [filters, setFilters] = useState(initialFilters);
@@ -101,8 +102,24 @@ const Article: React.FC = () => {
       const response = await callApi(apiConfig);
       setPreferences(response?.source_names);
     };
+
+    const getAuthors = async () => {
+      const apiConfig = articleService.getAuthorOptions(1);
+      const response = await callApi(apiConfig);
+      if (response?.authors) {
+        // Ensure authors are properly formatted as { label, value } objects
+        const formattedAuthors = response.authors.map((name: string) => ({
+          label: name,
+          value: name,
+        }));
+    
+        setInitialAuthors(formattedAuthors); // Set properly formatted authors
+      }
+    };
+  
   
     useEffect(() => {
+      getAuthors()
       getUserPrefernce();
     }, []);
   
@@ -122,7 +139,7 @@ const Article: React.FC = () => {
             onChange={handleSearchChange}
             isSearchBar
           />
-          <ArticleFilter filters={filters} preferences={preferences} onFilterChange={handleFilterChange} />
+          <ArticleFilter initialAuthors={initialAuthors} filters={filters} preferences={preferences} onFilterChange={handleFilterChange} />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {articles?.length > 0 &&

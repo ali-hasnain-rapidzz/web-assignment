@@ -21,7 +21,7 @@ export const articleService = {
   },
   getAuthorOptions: (
     page: number,
-    search: string
+    search?: string
   ): CustomAxiosRequestConfig => {
     return {
       method: 'GET',
