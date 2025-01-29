@@ -13,18 +13,22 @@ const Article: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [filters, setFilters] = useState({
-    search: '',
-    date: '',
-    category: '',
-    source: '',
-    author: '',
-  });
+  // Extract filters and page from URL on initial render
+  const queryParams = new URLSearchParams(location.search);
+  const initialFilters = {
+    search: queryParams.get('search') || '',
+    date: queryParams.get('date') || '',
+    category: queryParams.get('category') || '',
+    source: queryParams.get('source') || '',
+    author: queryParams.get('author') || '',
+  };
+  const initialPage = Number(queryParams.get('page')) || 1;
 
-  const [page, setPage] = useState(1);
+  // State Initialization
+  const [filters, setFilters] = useState(initialFilters);
+  const [page, setPage] = useState(initialPage);
   const [debouncedSearch, setDebouncedSearch] = useState(filters.search);
   const [articles, setArticles] = useState<IArticle[]>([]);
-
   const { isLoading, callApi } = useAxios();
 
   // Handle search input change
@@ -41,72 +45,53 @@ const Article: React.FC = () => {
     return () => clearTimeout(debounceTimeout);
   }, [filters.search]);
 
-  // Fetch articles when filters (except search) or pagination changes
+  // Fetch articles when filters or page change
   const fetchArticles = useCallback(async () => {
     const apiConfig = articleService.getArticleConfig(
-      { ...filters, search: debouncedSearch }, // Use debounced search
+      { ...filters, search: debouncedSearch },
       page
     );
     const response = await callApi(apiConfig);
     if (response) {
       setArticles(response.data);
     }
-  }, [debouncedSearch, page, filters.date, filters.category, filters.source, filters.author]); // Exclude filters.search
+  }, [debouncedSearch, page, filters.date, filters.category, filters.source, filters.author]);
 
-  // Trigger API fetch when dependencies change
   useEffect(() => {
     fetchArticles();
   }, [fetchArticles]);
 
-  // Update URL when filters change
-  const updateUrlWithFilters = (filters: any) => {
-    const queryParams = new URLSearchParams();
-    Object.keys(filters).forEach((key) => {
-      if (filters[key]) {
-        queryParams.set(key, filters[key]);
-      }
+  // Update URL only when needed
+  const updateUrlWithFilters = (updatedFilters: typeof filters, updatedPage: number) => {
+    const queryParams = new URLSearchParams(location.search);
+    
+    Object.entries(updatedFilters).forEach(([key, value]) => {
+      if (value) queryParams.set(key, value);
+      else queryParams.delete(key);
     });
-    queryParams.set('page', page.toString()); // Add page to the query params
-    navigate({ search: queryParams.toString() });
+
+    queryParams.set('page', updatedPage.toString());
+
+    const newUrl = `?${queryParams.toString()}`;
+
+    if (location.search !== newUrl) {
+      navigate(newUrl, { replace: true }); // Avoids creating unnecessary history entries
+    }
   };
 
   // Handle filter updates (excluding search)
   const handleFilterChange = (newFilters: Partial<typeof filters>) => {
-    const updatedFilters = { ...filters, ...newFilters};
-    setPage(1); // Reset to first page on filter change
+    const updatedFilters = { ...filters, ...newFilters };
     setFilters(updatedFilters);
+    setPage(1); // Reset page
+    updateUrlWithFilters(updatedFilters, 1);
   };
 
-  // Handle page change and update URL
+  // Handle page change
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
+    updateUrlWithFilters(filters, newPage);
   };
-
-  // Parse URL query parameters and update filters on initial load
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const initialFilters: any = {};
-    queryParams.forEach((value, key) => {
-      initialFilters[key] = value;
-    });
-
-    // Set filters state based on query parameters
-    setFilters({
-      search: initialFilters.search || '',
-      date: initialFilters.date || '',
-      category: initialFilters.category || '',
-      source: initialFilters.source || '',
-      author: initialFilters.author || '',
-    });
-
-    // Set page from query parameters
-    setPage(Number(initialFilters.page) || 1);
-  }, [location.search]);
-
-  // Update URL whenever page or filters change
-  useEffect(() => {
-    updateUrlWithFilters(filters);
-  }, [page, filters]); // Only update URL when page or filters change
 
   if (isLoading) return <Loader />;
 
@@ -123,15 +108,11 @@ const Article: React.FC = () => {
             onChange={handleSearchChange}
             isSearchBar
           />
-          <ArticleFilter
-            filters={filters}
-            onFilterChange={handleFilterChange}
-          />
+          <ArticleFilter filters={filters} onFilterChange={handleFilterChange} />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          {articles?.length > 0 && articles.map((article: IArticle) => (
-            <ArticleCard key={article.id} article={article} />
-          ))}
+          {articles?.length > 0 &&
+            articles.map((article: IArticle) => <ArticleCard key={article.id} article={article} />)}
         </div>
         {articles?.length > 0 && (
           <div className="mt-6 flex justify-center space-x-4">
