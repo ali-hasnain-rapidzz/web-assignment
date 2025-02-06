@@ -23,20 +23,17 @@ const Login: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: '' }); // Clear error for the specific field
+    setErrors({ ...errors, [id]: '' }); 
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate form data using the generic function
     const validationErrors = validateForm(formData, loginValidationSchema);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
-    // Proceed with the API call if validation passes
     const apiConfig = authService.login(formData.email, formData.password);
     const response = await callApi(apiConfig);
     if (response) {
@@ -46,7 +43,6 @@ const Login: React.FC = () => {
     }
   };
 
-  // Check if any field is empty or preferences are less than 3
   const isSubmitDisabled = !formData.email || !formData.password;
 
   return (
@@ -67,7 +63,7 @@ const Login: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              error={errors.email} // Pass error message dynamically
+              error={errors.email}
             />
           </div>
           <div className="mb-4">
@@ -78,7 +74,7 @@ const Login: React.FC = () => {
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              error={errors.password} // Pass error message dynamically
+              error={errors.password} 
               required
             />
           </div>

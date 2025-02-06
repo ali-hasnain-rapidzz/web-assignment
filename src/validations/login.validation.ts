@@ -1,4 +1,3 @@
-// validationSchemas.ts
 import { ValidationSchema } from '@Types/validation.type';
 
 export const loginValidationSchema: ValidationSchema = {

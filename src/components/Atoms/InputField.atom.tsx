@@ -2,14 +2,14 @@ import React from 'react';
 
 interface InputFieldProps {
   id: string;
-  label?: string; // Optional for search bar
+  label?: string;
   type: string;
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
-  isSearchBar?: boolean; // Boolean to distinguish if it's a search bar or not
-  error?: string; // Error message to display
+  isSearchBar?: boolean;
+  error?: string; 
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -20,19 +20,17 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   onChange,
   required = false,
-  isSearchBar = false, // Default to false for regular input fields
-  error, // Error message
+  isSearchBar = false,
+  error, 
 }) => {
   return (
     <div
       className={`mb-4 ${isSearchBar ? 'mt-4 w-full sm:w-1/2 lg:w-1/3' : ''}`}
     >
-      {/* Render label only for non-search input fields */}
       {!isSearchBar && label && (
         <label htmlFor={id} className="block text-sm font-medium text-gray-700">
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}{' '}
-          {/* Add asterisk if required */}
         </label>
       )}
       <input
@@ -46,7 +44,6 @@ const InputField: React.FC<InputFieldProps> = ({
           error ? 'border-red-500 focus:ring-red-500' : 'focus:ring-blue-500'
         }`}
       />
-      {/* Display error message if provided */}
       {error && <p className="text-sm text-red-600 mt-1">{error}</p>}
     </div>
   );

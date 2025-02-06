@@ -31,7 +31,7 @@ const Dropdown: React.FC<{
   return (
     <div className="relative" ref={dropdownRef}>
       <Button
-        label="" // or a value if you need the label text
+        label="" 
         onClick={toggleDropdown}
         className="flex items-center space-x-2 bg-blue-500 rounded-full px-4 py-2 hover:bg-blue-700"
       >

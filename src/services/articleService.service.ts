@@ -1,21 +1,19 @@
 import { ARTICLE_URL, AUTHOR_URL } from '@Utils/urls.util';
 import { CustomAxiosRequestConfig } from '@/types/axios.type';
 
-// Simulate an API call and return filtered articles
 export const articleService = {
-  // Dummy function to get article details
   getArticleDetail: (id: string): CustomAxiosRequestConfig => {
     return {
       method: 'GET',
-      url: `${ARTICLE_URL}/${id}`, // The ID is now part of the path
+      url: `${ARTICLE_URL}/${id}`, 
       privateRoute: true,
     };
   },
   getArticleConfig: (filters: any, page: number): CustomAxiosRequestConfig => {
     return {
       method: 'GET',
-      url: ARTICLE_URL, // Adjust this URL to your backend endpoint
-      params: { ...filters, page }, // Merge filters and page number
+      url: ARTICLE_URL, 
+      params: { ...filters, page },
       privateRoute: true,
     };
   },
@@ -25,11 +23,11 @@ export const articleService = {
   ): CustomAxiosRequestConfig => {
     return {
       method: 'GET',
-      url: AUTHOR_URL, // The ID is now part of the path
+      url: AUTHOR_URL, 
       privateRoute: true,
       params: {
-        page, // Pass the page parameter to get paginated authors
-        limit: 20, // Number of authors to fetch per page
+        page, 
+        limit: 20, 
         search,
       },
     };

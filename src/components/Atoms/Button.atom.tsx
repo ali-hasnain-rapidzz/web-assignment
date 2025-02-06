@@ -6,7 +6,7 @@ interface ButtonProps {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
-  children?: React.ReactNode; // Allow any JSX content as children
+  children?: React.ReactNode; 
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,10 +17,9 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   children,
 }) => {
-  // Define the dynamic class names
   const dynamicClasses = disabled
-    ? 'bg-gray-400 cursor-not-allowed' // If disabled
-    : 'bg-blue-600 hover:bg-blue-700'; // If enabled
+    ? 'bg-gray-400 cursor-not-allowed' 
+    : 'bg-blue-600 hover:bg-blue-700'; 
 
   return (
     <button
@@ -30,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
     >
       {label && <span>{label}</span>}
-      {children} {/* Render children if passed */}
+      {children} 
     </button>
   );
 };

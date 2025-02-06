@@ -7,14 +7,14 @@ interface ArticleFilterProps {
   filters: Filters;
   onFilterChange: (newFilters: Partial<Filters>) => void;
   preferences: string[];
-  initialAuthors: IAuthor[]; // Proper type for initial authors
+  initialAuthors: IAuthor[]; 
 }
 
 const ArticleFilter: React.FC<ArticleFilterProps> = ({
   filters,
   onFilterChange,
   preferences,
-  initialAuthors, // Receive initial authors
+  initialAuthors, 
 }) => {
   return (
     <div className="flex max-w-full flex-wrap gap-4 sm:flex-nowrap">
@@ -36,11 +36,10 @@ const ArticleFilter: React.FC<ArticleFilterProps> = ({
         options={preferences?.map((item) => ({ label: item, value: item }))}
         placeholder="Select Source"
       />
-      {/* Author Filter now manages its own API calls */}
       <AuthorFilter
         value={filters.author}
         onChange={(val) => onFilterChange({ author: val })}
-        initialAuthors={initialAuthors} // Pass initial authors only once
+        initialAuthors={initialAuthors} 
       />
     </div>
   );

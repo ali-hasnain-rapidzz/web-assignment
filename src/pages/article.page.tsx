@@ -15,7 +15,6 @@ const Article: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Extract filters and page from URL on initial render
   const queryParams = new URLSearchParams(location.search);
   const initialFilters = {
     search: queryParams.get('search') || '',
@@ -35,12 +34,10 @@ const Article: React.FC = () => {
   const [articles, setArticles] = useState<IArticle[]>([]);
   const { isLoading, callApi } = useAxios();
 
-  // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters((prev) => ({ ...prev, search: e.target.value }));
   };
 
-  // Debounce search input
   useEffect(() => {
     const debounceTimeout = setTimeout(() => {
       setDebouncedSearch(filters.search);
@@ -49,7 +46,6 @@ const Article: React.FC = () => {
     return () => clearTimeout(debounceTimeout);
   }, [filters.search]);
 
-  // Fetch articles when filters or page change
   const fetchArticles = useCallback(async () => {
     const apiConfig = articleService.getArticleConfig(
       { ...filters, search: debouncedSearch },
@@ -65,7 +61,6 @@ const Article: React.FC = () => {
     fetchArticles();
   }, [fetchArticles]);
 
-  // Update URL only when needed
   const updateUrlWithFilters = (updatedFilters: typeof filters, updatedPage: number) => {
     const queryParams = new URLSearchParams(location.search);
     
@@ -79,25 +74,22 @@ const Article: React.FC = () => {
     const newUrl = `?${queryParams.toString()}`;
 
     if (location.search !== newUrl) {
-      navigate(newUrl, { replace: true }); // Avoids creating unnecessary history entries
+      navigate(newUrl, { replace: true }); 
     }
   };
 
-  // Handle filter updates (excluding search)
   const handleFilterChange = (newFilters: Partial<typeof filters>) => {
     const updatedFilters = { ...filters, ...newFilters };
     setFilters(updatedFilters);
-    setPage(1); // Reset page
+    setPage(1); 
     updateUrlWithFilters(updatedFilters, 1);
   };
 
-  // Handle page change
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
     updateUrlWithFilters(filters, newPage);
   };
 
-    // Fetch user preferences (source options)
     const getUserPrefernce = async () => {
       const apiConfig = prefernceService.getPrefernce();
       const response = await callApi(apiConfig);
@@ -108,12 +100,11 @@ const Article: React.FC = () => {
       const apiConfig = articleService.getAuthorOptions(1, filters.author);
       const response = await callApi(apiConfig);
       if (response?.authors) {
-        // Ensure authors are properly formatted as { label, value } objects
         const formattedAuthors = response.authors.map((name: string) => ({
           label: name,
           value: name,
         }));
-        setInitialAuthors(formattedAuthors); // Set properly formatted authors
+        setInitialAuthors(formattedAuthors); 
       }
     };
   

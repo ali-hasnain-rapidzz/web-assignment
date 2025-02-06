@@ -17,7 +17,6 @@ export interface IAuthor {
 }
 
 
-// Type for filters
 export interface Filters {
   date: string;
   category: string;
@@ -28,5 +27,5 @@ export interface Filters {
 export interface AuthorFilterProps {
   value: string;
   onChange: (author: string) => void;
-  initialAuthors: IAuthor[]; // Initial authors from parent
+  initialAuthors: IAuthor[];
 }

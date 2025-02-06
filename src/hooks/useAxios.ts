@@ -22,7 +22,6 @@ const useAxios = <T = any>(): UseAxiosResponse<T> => {
     try {
       const { privateRoute = false, headers, ...restConfig } = config;
 
-      // Add Authorization header for private routes
       const token = privateRoute ? localStorage.getItem('token') : null;
 
       const updatedConfig: AxiosRequestConfig = {

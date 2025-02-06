@@ -12,7 +12,6 @@ const ArticleDetail: React.FC = () => {
   const { isLoading, callApi } = useAxios<any>();
 
   const fetchArticleDetail = async (id: string) => {
-    // Prevent making the API call if it's already loading or id is not valid
     const apiConfig = articleService.getArticleDetail(id);
     const response = await callApi(apiConfig);
     if (response) {
@@ -24,7 +23,7 @@ const ArticleDetail: React.FC = () => {
     if (id) {
       fetchArticleDetail(id);
     }
-  }, [id]); // Run the effect only when the `id` changes
+  }, [id]); 
 
   if (isLoading) return <Loader />;
 

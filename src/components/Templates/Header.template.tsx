@@ -9,7 +9,6 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Add your logout logic here
     localStorage.setItem("token", '')
     localStorage.setItem("username", '')
     navigate('/login');

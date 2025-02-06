@@ -2,7 +2,7 @@ import React from 'react';
 
 interface LoaderProps {
   size?: 'small' | 'medium' | 'large';
-  color?: string; // Tailwind color class, e.g., "text-blue-600"
+  color?: string; 
 }
 
 const Loader: React.FC<LoaderProps> = ({

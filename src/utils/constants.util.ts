@@ -8,7 +8,6 @@ export const availablePreferences = [
   'CNN News',
 ];
 
-// Define the options for each filter
 export const dateOptions = [
   { value: 'today', label: 'Today' },
   { value: 'week', label: 'This Week' },

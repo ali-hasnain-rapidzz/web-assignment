@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ParagraphProps {
   text: string;
-  className?: string; // Optional className prop for custom styling
+  className?: string; 
 }
 
 const Paragraph: React.FC<ParagraphProps> = ({ text, className }) => {
